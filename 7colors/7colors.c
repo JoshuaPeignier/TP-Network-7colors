@@ -103,57 +103,8 @@ int main()
 		scanf("%d",&rematch);
 	}while(rematch < 1 || rematch > 2);
    }
- 
-/*
-   if(mode == 1){
-	while(rematch == 1){
-		init_window();
-		random_filling();
- 		update_board();
-		run_game(PLAYER1,&real_play,&real_play);
-		update_board();
-		printf("Player 1 : %d\n",score(PLAYER1));
-		printf("Player 2 : %d\n",score(PLAYER2));
-		printf("\n");
-		if(score(PLAYER1) > score(PLAYER2)){victory1++;}
-		else{victory2++;}
-		printf("\n**************************************\n\n");
-		printf("Player 1 : %d victories\n",victory1);
-		printf("Player 2 : %d victories\n",victory2);
-		printf("\n\nDo you want to play again ?\n");
-		printf("1) Yes\n");
-		printf("2) No\n");
-		do{
-			scanf("%d",&rematch);
-		}while(rematch < 1 || rematch > 2);
-	}
-   }
 
 
-   if(mode == 2){
-	while(rematch == 1){
-		init_window();
-		random_filling();
- 		update_board();
-		run_game(PLAYER1,&real_play,AI);
-		update_board();
-		printf("Player : %d\n",score(PLAYER1));
-		printf("AI : %d\n",score(PLAYER2));
-		printf("\n");
-		if(score(PLAYER1) > score(PLAYER2)){victory1++;}
-		else{victory2++;}
-		printf("\n**************************************\n\n");
-		printf("Player : %d victories\n",victory1);
-		printf("AI : %d victories\n",victory2);
-		printf("\n\nDo you want to play again ?\n");
-		printf("1) Yes\n");
-		printf("2) No\n");
-		do{
-			scanf("%d",&rematch);
-		}while(rematch < 1 || rematch > 2);
-	}
-   }
-*/
 
    SDL_Quit();
    return 0; // Everything went well
