@@ -39,6 +39,7 @@ int main(int argc, char* argv[]){
 	addr.sin_port = htons(atoi(argv[2]));
 	addr.sin_addr.s_addr = INADDR_ANY;
 	socklen_t peer_addr_size = sizeof(struct sockaddr_in);
+	
 	char buf[BUF_SIZE];
 
 	// Binding the socket to previous address
@@ -56,10 +57,11 @@ int main(int argc, char* argv[]){
 	printf("The server socket is currently listening !\n");
 
 
-	// Enterint the accept-loop
-	while(1){
+	// Entering the accept-loop
+	int consocket = accept(sock, (struct sockaddr *) &addr, &peer_addr_size);
+	while(consocket){
 		printf("Trying to accept a new request.\n");
-		if(accept(sock, (struct sockaddr *) &addr, &peer_addr_size)==-1){
+		if(/*accept(sock, (struct sockaddr *) &addr, &peer_addr_size)*/consocket==-1){
 			printf("Error : couldn't accept request.\n");
 		}
 		printf("Successfully accepted the request.\n");
@@ -68,8 +70,9 @@ int main(int argc, char* argv[]){
 		//printf("%s", inet_ntoa(addr.sin_addr));
 		send(sock,buf,BUF_SIZE,0);
 		printf("Successfully send the bits back.\n");
+		consocket = accept(sock, (struct sockaddr *) &addr, &peer_addr_size);	
 	}
 
-
+	close(sock);
 	return 0;
 }

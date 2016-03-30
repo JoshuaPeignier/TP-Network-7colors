@@ -41,11 +41,17 @@ int main(int argc, char* argv[]){
 	socklen_t peer_addr_size = sizeof(struct sockaddr_in);
 
 	const struct sockaddr* server_addr = &addr;
+
+	
 	char buf[BUF_SIZE];
+	/*
 	buf[0] = "H";
 	buf[1] = "e";
 	buf[2] = "y";
 	buf[3] = "\0";
+	*/
+
+	char* message = "Hallo !";
 
 	// Connexion test
 	if(connect(sock,server_addr,peer_addr_size) == -1){
@@ -58,15 +64,26 @@ int main(int argc, char* argv[]){
 	//printf("Successful connexion.\n");
 	//while(1){
 		// Testing the connexion by sending bits
-		if(send(sock,buf /*argv[4]*/,BUF_SIZE,0) == -1){
+		printf("Trying to send bits\n");
+		if(send(sock,argv[4],strlen(argv[4])+1/*BUF_SIZE*/,0) == -1){
+			printf("Error : couldn't send any bits.\n");
+			return 0;
+		}
+
+
+		/*
+		int temp = htonl(3490);
+		printf("Trying to send bits\n");
+		if(send(sock,&temp,sizeof(temp),0) == -1){
 			printf("Error : couldn't send any bits.\n");
 		}
-		printf("Successfully send bits.\n");
+		*/
+		printf("Successfully sent bits.\n");
 		recv(sock,buf,BUF_SIZE,0);
 		printf("Received some bits.\n");
 		printf("%s", buf);
 	//}
 
-
+	close(sock);
 	return 0;
 }
