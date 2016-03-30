@@ -14,7 +14,9 @@ all: $(TARGET)
 $(TARGET):
 	@(cd Server && $(MAKE))
 	@(cd Client && $(MAKE))
+	@(cd 7colors && $(MAKE))
 
 clean:
 	@(cd Server && $(MAKE) $@)
 	@(cd Client && $(MAKE) $@)
+	@(cd 7colors && $(MAKE) $@)

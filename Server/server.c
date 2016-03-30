@@ -31,8 +31,6 @@ int main(int argc, char* argv[]){
 	int readSock; // The socket where we will store the one returned by accept()
 	struct sockaddr_in addr; // The variable which contains each piece of information about the current client (IP address, port, etc)
 	char buffer[BUFFER_SIZE]; // The buffer, where we store the received data
-
-	// int connect = 1;
 	socklen_t addr_size = sizeof(struct sockaddr_in);
 
 	// Creating the necessary structure to store the address you want to connect to
@@ -99,7 +97,6 @@ int main(int argc, char* argv[]){
 			exit(EXIT_FAILURE);
 		}
 		printf("Successfully send the bits back.\n");
-		printf("%d",readSock);
 	}
 
 	close(sock);
