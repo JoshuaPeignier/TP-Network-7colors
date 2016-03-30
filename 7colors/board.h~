@@ -15,9 +15,9 @@ char get_cell(int x, int y) ;
 
 void set_cell(int x, int y, char color);
 
-void copy_board(char* saved_board);
+void copy_board();
 
-void get_saved_board(char* saved_board);
+void get_saved_board();
 
 void print_board();
 

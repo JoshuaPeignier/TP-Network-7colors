@@ -1,0 +1,89 @@
+#include <stdio.h>  /* printf */
+#include <stdlib.h>
+#include <math.h>
+#include <time.h>
+#include <SDL/SDL.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <string.h>
+#include <unistd.h>
+#include "board.h"
+
+#define BUFFER_SIZE 500
+
+// Initialising everything necessary for online interactions
+int sock; // The socket we will open
+int readSock; // The socket where we will store the one returned by accept()
+struct sockaddr_in addr; // The variable which contains each piece of information about the current client (IP address, port, etc)
+//char buffer[BUFFER_SIZE]; // The buffer, where we store the received data
+socklen_t addr_size;
+char buffer[BUFFER_SIZE];
+
+
+// Bind-Listen-Accept
+void bla(){
+	// Creating the necessary structure to store the address you want to connect to
+	addr_size = sizeof(struct sockaddr_in);
+	memset(&addr, 0, sizeof addr);
+	addr.sin_family = AF_INET;
+	addr.sin_port = htons(7777);
+	addr.sin_addr.s_addr = htonl(INADDR_ANY);
+
+	// Creating the socket
+	sock = socket(PF_INET,SOCK_STREAM,IPPROTO_TCP);
+	if(sock == -1){
+		perror("couldn't create the socket !\n");
+		exit(EXIT_FAILURE);
+	}
+
+	// Binding the socket to previous address
+	if( bind(sock, (struct sockaddr*) &addr, addr_size) == -1){
+		perror("couldn't bind the socket and the adress !\n");
+		close(sock);
+		exit(EXIT_FAILURE);
+	}
+
+	// Listening
+	if(listen(sock, 1024) == -1){
+		perror("sock is deaf and cannot listen !");
+		close(sock);
+		exit(EXIT_FAILURE);
+	}
+
+	// Accepting the next request
+	readSock = accept(sock, (struct sockaddr *) &addr, &addr_size);
+	if(readSock == -1){
+		perror("couldn't accept request.\n");
+		close(readSock);
+		close(sock);
+		exit(EXIT_FAILURE);
+	}
+}
+
+void send_board(){
+	copy_board(buffer);
+	buffer[BOARD_SIZE*BOARD_SIZE] = '\0';
+
+	if(send(readSock, buffer, BUFFER_SIZE, 0) == -1){
+		perror("couldn't send anything");
+		close(readSock);
+		close(sock);
+		exit(EXIT_FAILURE);
+	}
+}
+
+void send_move(char color){
+	buffer[0] = color;
+	buffer[1] = '\0';
+	if(send(readSock, buffer, BUFFER_SIZE, 0) == -1){
+		perror("couldn't send anything");
+		close(readSock);
+		close(sock);
+		exit(EXIT_FAILURE);
+	}
+}
+
+void spectators_quit(){
+	close(readSock);
+	close(sock);
+}

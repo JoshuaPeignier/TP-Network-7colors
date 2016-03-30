@@ -4,8 +4,6 @@
 #include <time.h>
 #include "auxiliary.h"
 
-void play(char player, char temp, char color);
-
 void real_play(char player);
 
 void random_play(char player);

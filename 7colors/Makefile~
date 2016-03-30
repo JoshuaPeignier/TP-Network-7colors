@@ -1,7 +1,7 @@
 all: 7colors spectate
 
 7colors: 7colors.o
-	gcc board.o server.o display.o auxiliary.o strategies.o 7colors.o -o 7colors `sdl-config --cflags --libs` 
+	gcc board.o display.o auxiliary.o strategies.o 7colors.o -o 7colors `sdl-config --cflags --libs` 
 
 spectate: spectate.o
 	gcc board.o display.o auxiliary.o strategies.o spectate.o -o spectate `sdl-config --cflags --libs` 

@@ -122,7 +122,7 @@ int main()
 			printf("Player 2 : %d victories\n",victory2);
 
 			if(allow_spectators == 1){
-				spectators_quit();
+				
 			}
 
 

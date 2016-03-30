@@ -5,7 +5,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#define BUF_SIZE 500
+#define BUFFER_SIZE 500
 
 /*
 struct sockaddr_in {
@@ -29,7 +29,7 @@ int main(int argc, char* argv[]){
 	struct sockaddr_in addr; // The necessary structure to store all pieces of information about the server (IP address, port, etc)
 	int sock; // The socket to connect to the server
 	socklen_t addr_size = sizeof(struct sockaddr_in);
-	char buf[BUF_SIZE]; // The buffer where we store what we get from the server
+	char buffer[BUFFER_SIZE]; // The buffer where we store what we get from the server
 
 	// Creating the necessary structure to store the address you're trying to connect to
 	memset(&addr, 0, sizeof addr);
@@ -44,13 +44,15 @@ int main(int argc, char* argv[]){
 	// Creating the client socket
 	sock = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
 	if(sock == -1){
-		printf("Error : couldn't create the socket !");
-		return 0;
+		perror("couldn't create the socket !");
+		close(sock);
+		exit(EXIT_FAILURE);
 	}
 	// Connexion test
 	if(connect(sock,(struct sockaddr *)&addr,addr_size) == -1){
-		printf("Error : couldn't connect to the server socket !\n");
-		return 0;
+		perror("couldn't connect to the server socket !\n");
+		close(sock);
+		exit(EXIT_FAILURE);
 	}
 
 
@@ -59,14 +61,17 @@ int main(int argc, char* argv[]){
 
 
 	// Sending bits and trying to get the back
-	if(send(sock,argv[4],strlen(argv[4])+1/*BUF_SIZE*/,0) == -1){
-		printf("Error : couldn't send any bits.\n");
-		return 0;
+	if(send(sock,argv[4],strlen(argv[4])+1,0) == -1){
+		perror("couldn't send any bits.\n");
+		close(sock);
+		exit(EXIT_FAILURE);
 	}
-	//printf("Successfully sent bits.\n");
-	recv(sock,buf,BUF_SIZE,0);
-	//printf("Received some bits.\n");
-	printf("%s\n", buf);
+	if(recv(sock, buffer, BUFFER_SIZE, 0) == -1){
+		perror("couldn't receive anything");
+		close(sock);
+		exit(EXIT_FAILURE);
+	}
+	printf("%s\n", buffer);
 
 	(void)shutdown(sock, SHUT_RDWR);
 	close(sock);

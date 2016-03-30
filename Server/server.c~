@@ -97,7 +97,6 @@ int main(int argc, char* argv[]){
 			exit(EXIT_FAILURE);
 		}
 		printf("Successfully send the bits back.\n");
-		printf("%d",readSock);
 	}
 
 	close(sock);

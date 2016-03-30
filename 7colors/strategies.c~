@@ -9,7 +9,7 @@
 
 
 /* Q2.2 : makes the player play the given color ;  temp argument is used only for simulation purposes, to test what would happen if you played a color */
-void play(char player, char temp, char color){
+static void play(char player, char temp, char color){
 	int i = 0;
 	int j = 0;
 	int next = 1; // boolean-like value, 1 if one changed at least one tile, else 0
