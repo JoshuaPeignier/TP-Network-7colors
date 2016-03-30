@@ -1,0 +1,43 @@
+\documentclass[a4paper]{article}
+
+\usepackage[frenchb]{babel}
+\usepackage{microtype}
+
+\usepackage{amsmath} 
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+
+
+\title{7 Colors : Online Game?}
+\author{J. Peignier \& E. Varloot}
+\date{5 avril 2016}
+
+
+\begin{document}
+
+maketitle{}
+
+\pagebreak{}
+	
+\section{Introduction}
+L'objectif de se TP est de créé une connection avec des sockets (entre deux ordinateur par exemple) et de s'en servir. 
+
+Dans une première partie nous devions créer les sockets serveurs et clients destiné a cet usage (a l'heure actuelle nous n'avons pas encore réussi a faire fonctionner sur deux ordinateurs en simultané) et  s'envoyer de petit message.
+
+Dans une seconde partie on cherche a s'en servir pour étendre l'influence de notre jeu 7colors. Permettre a un observateur externe de suivre le déroulement de la partie par exemple.
+
+\section{Reponse pour la partie 2}
+ 
+Q1:Notre programme était déja factorisé de telle manière a ce que les code permetant d'afficher a l'écran et de determiner ce qui se passe quand on joue une couleur n'était pas dans le main. 
+ 
+Cette factorisation a pour interer que si les autres parties prenante veulent particité il leurs suffit de connaitre un l'état initial et l'historique des choix des joueur pour reconstituer completement la partie.
+
+Q2: Modifier le programme pour qu'il choisisse le port 7777 consiste uniquement a le lui imposé dans ces arguments.
+Une fois la connection etabli, on envois grâce a send la grille initial du jeu puis on commence à jouer. On envois a chaque tours les actions des joueurs au client.
+Le client utilise les fonctions énoncé dans la Q1 pour reconstitué la partie en entier. 
+ 
+\section{References}
+https://en.wikipedia.org/wiki/Berkeley_sockets#accept.28.29
+
+\end{document}
