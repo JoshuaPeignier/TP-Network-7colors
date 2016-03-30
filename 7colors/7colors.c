@@ -39,7 +39,6 @@ int main()
 	int rematch = 1;
 	int difficulty = 0;
 	void (*P2)(char) = NULL; // This will be either an AI or a real player
-	int allow_spectators = 0;
 
 	while(rematch == 1){
 
@@ -89,26 +88,27 @@ int main()
 	
 		// If we are running a game on this computer
 		if(mode == 1 || mode == 2){
-
+			int sp = 0;
 			// Verifying if we allow spectators
 			printf("Allow spectators\n");
 			printf("1) Yes\n");
 			printf("2) No\n");
 			do{
-				scanf("%d",&allow_spectators);
-			}while(allow_spectators < 1 || allow_spectators > 2);
+				scanf("%d",&sp);
+			}while(sp < 1 || sp > 2);
+			
+			if(sp == 1){allow_spectators();}
+			else{ban_spectators();}
 
 			// Initialising everything in order to allow spectators to watch
-			if(allow_spectators == 2){
-				bla();
-
-			}
+			if(spectate() == 1){bla();}
 
 			// Initialising the game
 			init_window();
 			random_filling();
 			update_board();
-		
+			if(spectate() == 1){send_board();}
+
 			// Running the game and printing the scores
 			run_game(PLAYER1,&real_play,P2);
 			update_board();
@@ -121,7 +121,7 @@ int main()
 			printf("Player 1 : %d victories\n",victory1);
 			printf("Player 2 : %d victories\n",victory2);
 
-			if(allow_spectators == 1){
+			if(spectate() == 1){
 				spectators_quit();
 			}
 

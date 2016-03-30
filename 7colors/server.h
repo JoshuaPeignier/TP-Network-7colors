@@ -10,8 +10,14 @@
 
 void bla();
 
+void allow_spectators();
+
+void ban_spectators();
+
+int spectate();
+
 void send_board();
 
-void send_move(char color);
+void send_move(char player, char color);
 
 void spectators_quit();

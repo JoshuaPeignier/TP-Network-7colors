@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include "board.h"
 
-#define BUFFER_SIZE 500
+#define BUFFER_SIZE 1000
 
 // Initialising everything necessary for online interactions
 int sock; // The socket we will open
@@ -18,7 +18,7 @@ struct sockaddr_in addr; // The variable which contains each piece of informatio
 //char buffer[BUFFER_SIZE]; // The buffer, where we store the received data
 socklen_t addr_size;
 char buffer[BUFFER_SIZE];
-
+int allow_spectate = 0;
 
 // Bind-Listen-Accept
 void bla(){
@@ -60,6 +60,10 @@ void bla(){
 	}
 }
 
+void allow_spectators(){allow_spectate = 1;}
+void ban_spectators(){allow_spectate = 2;}
+int spectate(){return allow_spectate;}
+
 void send_board(){
 	copy_board(buffer);
 	buffer[BOARD_SIZE*BOARD_SIZE] = '\0';
@@ -72,9 +76,10 @@ void send_board(){
 	}
 }
 
-void send_move(char color){
-	buffer[0] = color;
-	buffer[1] = '\0';
+void send_move(char player, char color){
+	buffer[0] = player;
+	buffer[1] = color;
+	buffer[2] = '\0';
 	if(send(readSock, buffer, BUFFER_SIZE, 0) == -1){
 		perror("couldn't send anything");
 		close(readSock);

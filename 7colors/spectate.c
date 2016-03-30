@@ -18,12 +18,11 @@ int main(){
 
 
 	SDL_Init(SDL_INIT_EVERYTHING);
-	char current_player = PLAYER1;
 
 	struct sockaddr_in addr; // The necessary structure to store all pieces of information about the server (IP address, port, etc)
 	int sock; // The socket to connect to the server
 	socklen_t addr_size = sizeof(struct sockaddr_in);
-	char buf[BUFFER_SIZE]; // The buffer where we store what we get from the server
+	char buffer[BUFFER_SIZE]; // The buffer where we store what we get from the server
 	char IP_string[64];
 
 	printf("Please enter the IP address you want to connect to.\n");
@@ -54,8 +53,8 @@ int main(){
 	}
 
 	printf("Successfully connection to the server.\n");
-	recv(sock,buf,BUFFER_SIZE,0);
-	get_saved_board(buf);
+	recv(sock,buffer,BUFFER_SIZE,0);
+	get_saved_board(buffer);
 	init_window();
 
 	while(nextturn()){
@@ -64,16 +63,8 @@ int main(){
 		printf("Player 2 : %d\n",score(PLAYER2));
 		printf("\n");
 
-		recv(sock,buf,BUFFER_SIZE,0);
-		play(current_player,TEMP,buf[0]); // The move is done here.
-
-		// Switching player at the end of each turn.
-		if(current_player == PLAYER1){
-			current_player = PLAYER2;
-		}
-		else{
-			current_player = PLAYER1;
-		}
+		recv(sock,buffer,BUFFER_SIZE,0);
+		play(buffer[0],TEMP,buffer[1]); // The move is done here.
 	}
 
 	update_board();

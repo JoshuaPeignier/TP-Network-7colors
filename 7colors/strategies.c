@@ -5,7 +5,7 @@
 #include "auxiliary.h"
 #include "display.h"
 #include "board.h"
-
+#include "server.h"
 
 
 /* Q2.2 : makes the player play the given color ;  temp argument is used only for simulation purposes, to test what would happen if you played a color */
@@ -32,12 +32,16 @@ void play(char player, char temp, char color){
 
 /* Q3.1 : The "real-player" strategy, used for human players */
 void real_play(char player){
-	play(player,TEMP,your_turn());
+	char color = your_turn();
+	play(player,TEMP,color);
+	if(spectate() == 1){send_move(player, color);}
 }
 
 /* Q4.1 : The full-random strategy */
 void random_play(char player){
-	play(player,TEMP,'A'+(random()%(NB_COLORS)));
+	char color = 'A'+(random()%(NB_COLORS));
+	play(player,TEMP,color);
+	if(spectate() == 1){send_move(player, color);}
 }
 
 /* Q4.2 : The improved random strategy, where the AI only plays colors that allows it to gain tiles */
@@ -101,6 +105,7 @@ void greedy(char player){
 	}
 	/* Finally, plays with the best color */
 	play(player,TEMP,max_color);	
+	if(spectate() == 1){send_move(player, max_color);}
 }
 
 
@@ -154,6 +159,7 @@ void spider(char player){
 
 	/* Finally, plays with the best color */
 	play(player,TEMP,max_color);
+	if(spectate() == 1){send_move(player, max_color);}
 
 }
 
@@ -214,6 +220,7 @@ void double_greedy(char player){
 
 	/* Finally, plays with the best color */
 	play(player,TEMP,max_color);	
+	if(spectate() == 1){send_move(player, max_color);}
 }
 
 
@@ -310,9 +317,11 @@ void mix(char player){
 	min_bd = max_bd-border_size(player,player);
 	if(min_bd*3 < 2*sc){
 		play(player,TEMP,max_color_g);
+		if(spectate() == 1){send_move(player, max_color_g);}
 	}
 	else{
 		play(player,TEMP,max_color_s);
+		if(spectate() == 1){send_move(player, max_color_s);}
 	}
 }
 

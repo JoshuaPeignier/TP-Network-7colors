@@ -4,7 +4,7 @@ all: 7colors spectate
 	gcc board.o server.o display.o auxiliary.o strategies.o 7colors.o -o 7colors `sdl-config --cflags --libs` 
 
 spectate: spectate.o
-	gcc board.o display.o auxiliary.o strategies.o spectate.o -o spectate `sdl-config --cflags --libs` 
+	gcc board.o server.o display.o auxiliary.o strategies.o spectate.o -o spectate `sdl-config --cflags --libs` 
 
 7colors.o: 7colors.c board.c auxiliary.c strategies.c display.c server.c
 	gcc -Wall -Werror -Wextra -lSDL_image board.c -c -g
@@ -14,11 +14,7 @@ spectate: spectate.o
 	gcc -Wall -Werror -Wextra -lSDL_image strategies.c -c -g
 	gcc -Wall -Werror -Wextra -lSDL_image 7colors.c -c -g
 
-spectate.o: spectate.c board.c auxiliary.c strategies.c display.c
-	gcc -Wall -Werror -Wextra -lSDL_image board.c -c -g
-	gcc -Wall -Werror -Wextra -lSDL_image display.c -c -g
-	gcc -Wall -Werror -Wextra -lSDL_image auxiliary.c -c -g
-	gcc -Wall -Werror -Wextra -lSDL_image strategies.c -c -g
+spectate.o: spectate.c board.c auxiliary.c strategies.c display.c server.c
 	gcc -Wall -Werror -Wextra -lSDL_image spectate.c -c -g
 
 clean:
