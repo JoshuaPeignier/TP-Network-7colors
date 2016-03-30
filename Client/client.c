@@ -26,24 +26,13 @@ struct in_addr {
 // First argument given when you execute the program is the port you want to connect to ; Second is the IP-address of the server ; Third is the string you send to the server
 int main(int argc, char* argv[]){
 
-	// Creating the client socket
-	int sock = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
-	if(sock == -1){
-		printf("Error : couldn't create the socket !");
-		return 0;
-	}
-	printf("Successfully created a client socket.\n");
-
-	// Defining what's necessary to store the address you're trying to connect to
 	struct sockaddr_in addr;
-	addr.sin_port = htons(atoi(argv[2]));
-	addr.sin_addr.s_addr = inet_addr(argv[3]);
-	socklen_t peer_addr_size = sizeof(struct sockaddr_in);
-
-	const struct sockaddr* server_addr = &addr;
-
-	
+	int sock;
+	int res;
+	socklen_t addr_size;
 	char buf[BUF_SIZE];
+	const struct sockaddr* server_addr = &addr;
+	// char* message = "Hallo !";
 	/*
 	buf[0] = "H";
 	buf[1] = "e";
@@ -51,13 +40,32 @@ int main(int argc, char* argv[]){
 	buf[3] = "\0";
 	*/
 
-	char* message = "Hallo !";
+
+	addr_size = sizeof(struct sockaddr_in);
+
+
+	// Creating the client socket
+	sock = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
+	if(sock == -1){
+		printf("Error : couldn't create the socket !");
+		return 0;
+	}
+	printf("Successfully created a client socket.\n");
+
+	// Defining what's necessary to store the address you're trying to connect to
+	memset(&addr, 0, sizeof addr);
+	addr.sin_family = AF_INET;
+	addr.sin_port = htons(atoi(argv[2]));
+	addr.sin_addr.s_addr = inet_addr(argv[3]);
+	res = inet_pton(AF_INET, inet_ntoa(addr.sin_addr), &addr.sin_addr);
+
 
 	// Connexion test
-	if(connect(sock,server_addr,peer_addr_size) == -1){
+	if(connect(sock,(struct sockaddr *)&addr,addr_size) == -1){
 		printf("Error : couldn't connect to the server socket !\n");
 		return 0;
 	}
+	printf("%s\n", argv[4]);
 	printf("Successful connexion to %s on the port %s.\n", inet_ntoa(addr.sin_addr), argv[2]);
 
 	//printf("%s\n", argv[3]);
@@ -85,7 +93,7 @@ int main(int argc, char* argv[]){
 		printf("%s", buf);
 		}
 	//}
-
+	(void)shutdown(sock, SHUT_RDWR);
 	close(sock);
 	return 0;
 }

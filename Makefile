@@ -17,4 +17,4 @@ $(TARGET):
 
 clean:
 	@(cd Server && $(MAKE) $@)
-	@(cd Client && $(MAKE))
+	@(cd Client && $(MAKE) $@)

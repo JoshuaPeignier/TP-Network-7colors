@@ -13,6 +13,8 @@ all: $(TARGET)
 
 $(TARGET):
 	@(cd Server && $(MAKE))
+	@(cd Client && $(MAKE))
 
 clean:
-	@(cd Serverer && $(MAKE) $@)
+	@(cd Server && $(MAKE) $@)
+	@(cd Client && $(MAKE))

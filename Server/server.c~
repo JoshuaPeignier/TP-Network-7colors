@@ -26,51 +26,66 @@ struct in_addr {
 // First argument given when you execute the program is the port you want to connect to
 int main(int argc, char* argv[]){
 
+	int sock;
+	int connect = 1;
+	struct sockaddr_in addr;
+	socklen_t addr_size;
+	char buf[BUF_SIZE];
+
+	addr_size = sizeof(struct sockaddr_in);
+
+
+
 	// Creating the socket
-	int sock = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
+	sock = socket(PF_INET,SOCK_STREAM,IPPROTO_TCP);
 	if(sock == -1){
-		printf("Error : couldn't create the socket !\n");
-		return 0;
+		perror("couldn't create the socket !\n");
+		exit(EXIT_FAILURE);
 	}
 	printf("Successfully created a socket !\n");
 
+
 	// Creating the necessary structure to stock the address you want to connect to
-	struct sockaddr_in addr;
+	memset(&addr, 0, sizeof addr);
+	addr.sin_family = AF_INET;
 	addr.sin_port = htons(atoi(argv[2]));
 	addr.sin_addr.s_addr = htonl(INADDR_ANY);
-	socklen_t peer_addr_size = sizeof(struct sockaddr_in);
-	
-	char buf[BUF_SIZE];
 
 	// Binding the socket to previous address
-	if(bind(sock,(struct sockaddr*) &addr, sizeof(struct sockaddr_in)) == -1){
-		printf("Error : couldn't bind the socket and the adress !\n");
-		return 0;
+	if(bind(sock,(struct sockaddr*) &addr, addr_size) == -1){
+		perror("couldn't bind the socket and the adress !\n");
+		close(sock);
+		exit(EXIT_FAILURE);
 	}
 	printf("Successfully bound socket and address on the port %d!\n",atoi(argv[2]));
 
 	// Listening
 	if(listen(sock,1024) == -1){
-		printf("Error : sock is deaf and cannot listen !");
-		return 0;
+		perror("sock is deaf and cannot listen !");
+		close(sock);
+		exit(EXIT_FAILURE);
 	}
 	printf("The server socket is currently listening !\n");
 
 
+
 	// Entering the accept-loop
-	int consocket = accept(sock, (struct sockaddr *) &addr, &peer_addr_size);
-	while(consocket){
+	while(connect){
+		connect = accept(sock, NULL, NULL/*(struct sockaddr *) &addr, &peer_addr_size*/);
 		printf("Trying to accept a new request.\n");
-		if(/*accept(sock, (struct sockaddr *) &addr, &peer_addr_size)*/consocket==-1){
-			printf("Error : couldn't accept request.\n");
+		if(/*accept(sock, (struct sockaddr *) &addr, &peer_addr_size)*/connect==-1){
+			perror("couldn't accept request.\n");
+			close(connect);
+			close(sock);
+			exit(EXIT_FAILURE);
 		}
+
 		printf("Successfully accepted the request.\n");
 		recv(sock,buf,BUF_SIZE,0);
 		printf("Successfully received some bits from %s.\n", inet_ntoa(addr.sin_addr));
 		//printf("%s", inet_ntoa(addr.sin_addr));
 		send(sock,buf,BUF_SIZE,0);
-		printf("Successfully send the bits back.\n");
-		consocket = accept(sock, (struct sockaddr *) &addr, &peer_addr_size);	
+		printf("Successfully send the bits back.\n");	
 	}
 
 	close(sock);
