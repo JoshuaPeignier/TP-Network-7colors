@@ -90,7 +90,7 @@ int main(int argc, char* argv[]){
 		printf("Successfully sent bits.\n");
 		recv(sock,buf,BUF_SIZE,0);
 		printf("Received some bits.\n");
-		printf("%s", buf);
+		printf("%s\n", buf);
 		}
 	//}
 	(void)shutdown(sock, SHUT_RDWR);

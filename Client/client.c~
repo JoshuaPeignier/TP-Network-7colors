@@ -57,7 +57,7 @@ int main(int argc, char* argv[]){
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(atoi(argv[2]));
 	addr.sin_addr.s_addr = inet_addr(argv[3]);
-	res = inet_pton(AF_INET, net_ntoa(addr.sin_addr), &addr.sin_addr);
+	res = inet_pton(AF_INET, inet_ntoa(addr.sin_addr), &addr.sin_addr);
 
 
 	// Connexion test
