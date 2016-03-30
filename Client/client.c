@@ -69,6 +69,7 @@ int main(int argc, char* argv[]){
 			printf("Error : couldn't send any bits.\n");
 			return 0;
 		}
+		else{
 
 
 		/*
@@ -82,6 +83,7 @@ int main(int argc, char* argv[]){
 		recv(sock,buf,BUF_SIZE,0);
 		printf("Received some bits.\n");
 		printf("%s", buf);
+		}
 	//}
 
 	close(sock);

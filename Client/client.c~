@@ -67,6 +67,7 @@ int main(int argc, char* argv[]){
 		printf("Trying to send bits\n");
 		if(send(sock,argv[4],strlen(argv[4])+1/*BUF_SIZE*/,0) == -1){
 			printf("Error : couldn't send any bits.\n");
+			return 0;
 		}
 
 

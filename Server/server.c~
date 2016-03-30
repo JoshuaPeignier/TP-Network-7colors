@@ -37,7 +37,7 @@ int main(int argc, char* argv[]){
 	// Creating the necessary structure to stock the address you want to connect to
 	struct sockaddr_in addr;
 	addr.sin_port = htons(atoi(argv[2]));
-	addr.sin_addr.s_addr = INADDR_ANY;
+	addr.sin_addr.s_addr = htonl(INADDR_ANY);
 	socklen_t peer_addr_size = sizeof(struct sockaddr_in);
 	
 	char buf[BUF_SIZE];
@@ -58,7 +58,7 @@ int main(int argc, char* argv[]){
 
 
 	// Entering the accept-loop
-	int consocket = accept(sock, (struct sockaddr *) &addr, &peer_addr_size;
+	int consocket = accept(sock, (struct sockaddr *) &addr, &peer_addr_size);
 	while(consocket){
 		printf("Trying to accept a new request.\n");
 		if(/*accept(sock, (struct sockaddr *) &addr, &peer_addr_size)*/consocket==-1){
@@ -70,7 +70,7 @@ int main(int argc, char* argv[]){
 		//printf("%s", inet_ntoa(addr.sin_addr));
 		send(sock,buf,BUF_SIZE,0);
 		printf("Successfully send the bits back.\n");
-		consocket = accept(sock, (struct sockaddr *) &addr, &peer_addr_size;	
+		consocket = accept(sock, (struct sockaddr *) &addr, &peer_addr_size);	
 	}
 
 	close(sock);
