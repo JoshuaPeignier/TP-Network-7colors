@@ -20,7 +20,7 @@ void play(char player, char temp, char color){
 			for(j = 0 ; j < BOARD_SIZE ; j++){
 				// If you're next to a tile of yours, and you're on a tile of the right color, you conquer it
 				if(adj(player,temp,i,j) && get_cell(i,j) == color){
-					set_cell(i,j,player);
+					set_cell(i,j,player); //les fonctions sont defii dans auxilary.c
 					next = 1; // And we repeat the process
 				}
 			}
@@ -35,14 +35,14 @@ void play(char player, char temp, char color){
 void real_play(char player){
 	char color = your_turn();
 	play(player,TEMP,color);
-	if(spectate() == 1){send_move(player, color);}
+	if(spectate() == 1){send_move(player, color);} //spectate defini dans spectate.c , send_move dans server.c
 }
 
 /* The full-random strategy */
 void random_play(char player){
 	char color = 'A'+(random()%(NB_COLORS));
 	play(player,TEMP,color);
-	if(spectate() == 1){send_move(player, color);}
+	if(spectate() == 1){send_move(player, color);} //spectate defini dans spectate.c , send_move dans server.c
 }
 
 /*The improved random strategy, where the AI only plays colors that allows it to gain tiles */
@@ -105,8 +105,8 @@ void greedy(char player){
 		}
 	}
 	/* Finally, plays with the best color */
-	play(player,TEMP,max_color);	
-	if(spectate() == 1){send_move(player, max_color);}
+	play(player,TEMP,max_color); 
+	if(spectate() == 1){send_move(player, max_color);} //spectate defini dans spectate.c , send_move dans server.c
 }
 
 
@@ -160,7 +160,7 @@ void spider(char player){
 
 	/* Finally, plays with the best color */
 	play(player,TEMP,max_color);
-	if(spectate() == 1){send_move(player, max_color);}
+	if(spectate() == 1){send_move(player, max_color);} //spectate defini dans spectate.c , send_move dans server.c
 
 }
 
@@ -221,7 +221,7 @@ void double_greedy(char player){
 
 	/* Finally, plays with the best color */
 	play(player,TEMP,max_color);	
-	if(spectate() == 1){send_move(player, max_color);}
+	if(spectate() == 1){send_move(player, max_color);} //spectate defini dans spectate.c , send_move dans server.c
 }
 
 
@@ -322,7 +322,7 @@ void mix(char player){
 	}
 	else{
 		play(player,TEMP,max_color_s);
-		if(spectate() == 1){send_move(player, max_color_s);}
+		if(spectate() == 1){send_move(player, max_color_s);} //spectate defini dans spectate.c , send_move dans server.c
 	}
 }
 
