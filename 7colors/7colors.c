@@ -110,7 +110,7 @@ int main()
 			if(spectate() == 1){send_board();} // sending your initail bord to spectator (used in spectator.c)
 
 			// Running the game and printing the scores
-			run_game(PLAYER1,&real_play,P2); //
+			run_game(PLAYER1,&real_play,P2); //defined in stategy.c
 			update_board();
 			printf("Player 1 : %d\n",score(PLAYER1));
 			printf("Player 2 : %d\n",score(PLAYER2));
@@ -121,7 +121,7 @@ int main()
 			printf("Player 1 : %d victories\n",victory1);
 			printf("Player 2 : %d victories\n",victory2);
 
-			if(spectate() == 1){
+			if(spectate() == 1){ //sending the spectator off
 				spectators_quit();
 			}
 
@@ -139,7 +139,7 @@ int main()
 		// Spectating an online game
 		if(mode == 3){
 			rematch = 0;
-			system("./spectate");
+			system("./spectate"); //switch to spectator.c executable
 		}
 	}
 	
