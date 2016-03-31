@@ -6,7 +6,7 @@ all: 7colors spectate client
 spectate: spectate.o
 	gcc board.o server.o display.o auxiliary.o strategies.o spectate.o -o spectate `sdl-config --cflags --libs` 
 
-spectate: client.o
+client: client.o
 	gcc board.o server.o display.o auxiliary.o strategies.o client.o -o client `sdl-config --cflags --libs` 
 
 7colors.o: 7colors.c board.c auxiliary.c strategies.c display.c server.c
@@ -28,3 +28,5 @@ clean:
 
 mrproper: clean
 	rm -rf 7colors
+	rm -rf spectate
+	rm -rf client

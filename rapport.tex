@@ -2,7 +2,8 @@
 
 \usepackage[frenchb]{babel}
 \usepackage{microtype}
-
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{amsmath} 
 \usepackage{amssymb}
 \usepackage{amsfonts}
@@ -16,7 +17,7 @@
 
 \begin{document}
 
-maketitle{}
+\maketitle{}
 
 \pagebreak{}
 	
@@ -32,15 +33,36 @@ Dans une seconde partie on cherche a s'en servir pour étendre l'influence de no
 Q1:Notre programme était déja factorisé de telle manière a ce que les code permetant d'afficher a l'écran et de determiner ce qui se passe quand on joue une couleur n'était pas dans le main. 
  
 Cette factorisation a pour interer que si les autres parties prenante veulent particité il leurs suffit de connaitre un l'état initial et l'historique des choix des joueur pour reconstituer completement la partie.
+\bigskip
 
 Q2: Modifier le programme pour qu'il choisisse le port 7777 consiste uniquement a le lui imposé dans ces arguments.
 Une fois la connection etabli, on envois grâce a send la grille initial du jeu puis on commence à jouer. On envois a chaque tours les actions des joueurs au client.
 Le client utilise les fonctions énoncé dans la Q1 pour reconstitué la partie en entier.
 
 Ceci fonctionne bien que l'on travaille de 2 terminaux distinct sur un même ordi ou sur deux ordinateur relier à la même adresse IP (nous n'avons pas encore réussi a interarrgir depuis deux localisation trop separer.
- 
+
+\bigskip
+
+Q3 :
+\bigskip
+
+Q4 :
+\bigskip
+
+Q5 :
+\bigskip
+
+Q6 :
+\bigskip
+
+Q7 :
+\bigskip
+
+Q8 : Nous réutilisions le même principe, dans \texttt{server.c}, que pour envoyer à un observateur les données concernées. Toutefois, nous avons choisi de dupliquer toutes les fonctions déjà existantes, car le passage de sockets en argument à nos fonctions conduisait à un erreur de la forme \texttt{socket operation on non-socket}.
+\bigskip
+
 \section{References}
-https://en.wikipedia.org/wiki/Berkeley_sockets#accept.28.29
+https://en.wikipedia.org/wiki/Berkeley$\textunderscore$sockets$\sharp$accept.28.29
 http://beej.us/guide/bgnet/output/html/singlepage/bgnet.html
 
 \end{document}

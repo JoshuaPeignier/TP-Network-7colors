@@ -28,3 +28,5 @@ clean:
 
 mrproper: clean
 	rm -rf 7colors
+	rm -rf spectate
+	rm -rf client

@@ -19,4 +19,7 @@ $(TARGET):
 clean:
 	@(cd Server && $(MAKE) $@)
 	@(cd Client && $(MAKE) $@)
-	@(cd 7colors && $(MAKE) $@)
+	@(cd 7colors && $(MAKE) mrproper)
+	rm -rf *.aux
+	rm -rf *.log
+	rm -rf *.synctex.gz
