@@ -7,8 +7,10 @@
 #include "board.h"
 #include "server.h"
 
+//players and board parameters are defined in board
 
-/* Q2.2 : makes the player play the given color ;  temp argument is used only for simulation purposes, to test what would happen if you played a color */
+/*makes the player play the given color ;  temp argument is used only for simulation purposes,
+to test what would happen if you played a color */
 void play(char player, char temp, char color){
 	int i = 0;
 	int j = 0;
@@ -19,7 +21,7 @@ void play(char player, char temp, char color){
 			for(j = 0 ; j < BOARD_SIZE ; j++){
 				// If you're next to a tile of yours, and you're on a tile of the right color, you conquer it
 				if(adj(player,temp,i,j) && get_cell(i,j) == color){
-					set_cell(i,j,player);
+					set_cell(i,j,player); //les fonctions sont defii dans auxilary.c
 					next = 1; // And we repeat the process
 				}
 			}
@@ -30,27 +32,27 @@ void play(char player, char temp, char color){
 
 
 
-/* Q3.1 : The "real-player" strategy, used for human players */
+/* The "real-player" strategy, used for human players */
 void real_play(char player){
 	char color = your_turn();
 	play(player,TEMP,color);
-	if(spectate() == 1){send_move(player, color);}
+	if(spectate() == 1){send_move(player, color);} //spectate defini dans spectate.c , send_move dans server.c
 }
 
-/* Q4.1 : The full-random strategy */
+/* The full-random strategy */
 void random_play(char player){
 	char color = 'A'+(random()%(NB_COLORS));
 	play(player,TEMP,color);
-	if(spectate() == 1){send_move(player, color);}
+	if(spectate() == 1){send_move(player, color);} //spectate defini dans spectate.c , send_move dans server.c
 }
 
-/* Q4.2 : The improved random strategy, where the AI only plays colors that allows it to gain tiles */
+/*The improved random strategy, where the AI only plays colors that allows it to gain tiles */
 void improved_random_play(char player){
-	int sc = score(player);
+	int sc = score(player); //definied in auxilary.c
 	char color='A';
 	int stuck =0;
 	int i,j;
-	while(color < 'A' + NB_COLORS && stuck ==0){ // this part makes sure there exists a color that allows to gain tiles 
+	while(color < 'A' + NB_COLORS && stuck ==0){ // this part makes sure there exists a color that allows to gain tiles (described in greedy)
 		play(TEMP,player,color);
 			if(score(TEMP) > 0){
 				stuck = 1;
@@ -73,7 +75,7 @@ void improved_random_play(char player){
 
 }
 
-/* Q5.1 : The greedy strategy */
+/* The greedy strategy */
 void greedy(char player){
 	/* A basic maximum-search, where the value we have to maximise is the number of tiles we can gain, e.g. the potental score we can have. */
 	int sc = score(player);
@@ -97,19 +99,19 @@ void greedy(char player){
 		/* Getting rid of the emulation, by setting all TEMP-tiles to the color we supposed the player would play */
 		for(i = 0 ; i < BOARD_SIZE ; i++){
 			for(j = 0 ; j < BOARD_SIZE ; j++){
-				if(get_cell(i,j) == TEMP){
+				if(get_cell(i,j) == TEMP){//get_cell and set_sell defined in board.c
 					set_cell(i,j,color);
 				}
 			}
 		}
 	}
 	/* Finally, plays with the best color */
-	play(player,TEMP,max_color);	
-	if(spectate() == 1){send_move(player, max_color);}
+	play(player,TEMP,max_color); 
+	if(spectate() == 1){send_move(player, max_color);} //spectate defini dans spectate.c , send_move dans server.c
 }
 
 
-// Q6.1 The spider player, who plays the color which gives him the largest border
+// The spider player, who plays the color which gives him the largest border
 void spider(char player){
 	/* A basic maximum-search, where the value we have to maximise is the number of tiles we can gain, e.g. the potential border length */
 	int max_bd = 0;
@@ -124,7 +126,7 @@ void spider(char player){
 		play(TEMP,player,color);
 
 		// Computing the size of the new border, and the score you would get
-		bd = border_size(player,TEMP);
+		bd = border_size(player,TEMP); //defined in auxilary
 		sk = score(player) + score(TEMP);
 
 		// Take note that if all moves decrease the length of your border compared to the current length (without TEMP), you play the one who keep the coming border at maximum length
@@ -159,7 +161,7 @@ void spider(char player){
 
 	/* Finally, plays with the best color */
 	play(player,TEMP,max_color);
-	if(spectate() == 1){send_move(player, max_color);}
+	if(spectate() == 1){send_move(player, max_color);} //spectate defini dans spectate.c , send_move dans server.c
 
 }
 
@@ -167,7 +169,7 @@ void spider(char player){
 
 
 
-/* Q6.2 : The visionnary greedy strategy */
+/*The visionnary greedy strategy */
 void double_greedy(char player){
 	/* A basic maximum-search, where the value we have to maximise is the number of tiles we can gain, e.g. the potental score we can have. */
 	int sc = score(player);
@@ -220,7 +222,7 @@ void double_greedy(char player){
 
 	/* Finally, plays with the best color */
 	play(player,TEMP,max_color);	
-	if(spectate() == 1){send_move(player, max_color);}
+	if(spectate() == 1){send_move(player, max_color);} //spectate defini dans spectate.c , send_move dans server.c
 }
 
 
@@ -321,6 +323,7 @@ void mix(char player){
 	}
 	else{
 		play(player,TEMP,max_color_s);
+		if(spectate() == 1){send_move(player, max_color_s);} //spectate defini dans spectate.c , send_move dans server.c
 	}
 }
 

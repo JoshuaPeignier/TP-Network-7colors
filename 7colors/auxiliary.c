@@ -6,6 +6,8 @@
 #include "display.h"
 #include "server.h"
 
+//get_cell, set_cell BOARD_SIZE, PLAYER1, PAYER2, TEMP are defined in board.c 
+
 /* Returns 1 if there is a case nearby which belongs to the given player or which has the temporary color (for simulation purposes), else 0*/
 int adj(char player, char temp, int i, int j){
 	int up =0;
