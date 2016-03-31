@@ -8,7 +8,6 @@
 #include "server.h"
 
 //players and board parameters are defined in board
-extern char current_color; // This variable is used only to get the color we have to send if we play online
 
 /*makes the player play the given color ;  temp argument is used only for simulation purposes,
 to test what would happen if you played a color */
@@ -35,7 +34,7 @@ void play(char player, char temp, char color){
 
 /* The "real-player" strategy, used for human players */
 void real_play(char player){
-	char color = your_turn();
+	char color = your_turn(); //defined in auxilary.c
 	play(player,TEMP,color);
 	if(spectate() == 1){send_move(player, color);} //spectate defini dans spectate.c , send_move dans server.c
 }
