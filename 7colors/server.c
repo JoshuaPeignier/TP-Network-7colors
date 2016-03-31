@@ -24,13 +24,13 @@ int allow_spectate = 0;
 void bla(){
 	// Creating the necessary structure to store the address you want to connect to
 	addr_size = sizeof(struct sockaddr_in);
-	memset(&addr, 0, sizeof addr); //memorizes a constant
+	memset(&addr, 0, sizeof addr); //memorizes a constant (thanks wikipia)
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(7777); // the port that will be used one the connection is etablished (hopefully wll bring luck)
 	addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
 	// Creating the socket
-	sock = socket(PF_INET,SOCK_STREAM,IPPROTO_TCP);
+	sock = socket(PF_INET,SOCK_STREAM,IPPROTO_TCP); //!!! AF est une generalisation de PF (essayons de remplacer)
 	if(sock == -1){
 		perror("couldn't create the socket !\n");
 		exit(EXIT_FAILURE);
@@ -61,7 +61,7 @@ void bla(){
 }
 
 
-//functions will be used in 7color.c to decide whever to wait for a spectator or not //!!! can we have several?
+//functions will be used in 7color.c to decide whever to wait for a spectator or not
 void allow_spectators(){allow_spectate = 1;}
 void ban_spectators(){allow_spectate = 2;}
 int spectate(){return allow_spectate;}
