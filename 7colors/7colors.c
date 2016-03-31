@@ -42,7 +42,7 @@ int main()
 
 	while(rematch == 1){
 
-		// Selecting a game mode
+		// Selecting a game mode we know
 		previous_mode = mode;
 	 	do{
 	   		printf("Which mode do you want to play ?\n");
@@ -97,20 +97,20 @@ int main()
 				scanf("%d",&sp);
 			}while(sp < 1 || sp > 2);
 			
-			if(sp == 1){allow_spectators();}
-			else{ban_spectators();}
+			if(sp == 1){allow_spectators();} //defined in server.c start creating a connection
+			else{ban_spectators();} //defined in server.c don't create connections
 
 			// Initialising everything in order to allow spectators to watch
-			if(spectate() == 1){bla();}
+			if(spectate() == 1){bla();} //if spectator is connected
 
 			// Initialising the game
 			init_window();
-			random_filling();
-			update_board();
-			if(spectate() == 1){send_board();}
+			random_filling(); //defined in board.c
+			update_board(); //defined in display.c
+			if(spectate() == 1){send_board();} // sending your initail bord to spectator (used in spectator.c)
 
 			// Running the game and printing the scores
-			run_game(PLAYER1,&real_play,P2);
+			run_game(PLAYER1,&real_play,P2); //
 			update_board();
 			printf("Player 1 : %d\n",score(PLAYER1));
 			printf("Player 2 : %d\n",score(PLAYER2));
