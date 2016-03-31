@@ -75,7 +75,7 @@ int main()
 		  	}while(difficulty < 1 || difficulty > 5);
 		
 	
-			switch(difficulty){ //chose the AI's stategy defined in stategy.c according to the how suicidal you are
+			switch(difficulty){ //chose the AI's stategy that is defined in stategy.c
 				case 1: P2 = &improved_random_play; break;
 				case 2: P2 = &spider; break;
 				case 3: P2 = &greedy; break;
