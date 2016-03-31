@@ -99,7 +99,7 @@ void greedy(char player){
 		/* Getting rid of the emulation, by setting all TEMP-tiles to the color we supposed the player would play */
 		for(i = 0 ; i < BOARD_SIZE ; i++){
 			for(j = 0 ; j < BOARD_SIZE ; j++){
-				if(get_cell(i,j) == TEMP){
+				if(get_cell(i,j) == TEMP){//get_cell and set_sell defined in board.c
 					set_cell(i,j,color);
 				}
 			}
