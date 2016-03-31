@@ -34,7 +34,7 @@ int main(int argc, char* argv[]){
 	socklen_t addr_size = sizeof(struct sockaddr_in);
 
 	// Creating the necessary structure to store the address you want to connect to
-	memset(&addr, 0, sizeof addr);
+	memset(&addr, 0, sizeof addr); //function discovereed on wikipedia that stores a constant
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(atoi(argv[2]));
 	addr.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -44,37 +44,34 @@ int main(int argc, char* argv[]){
 
 
 	// Creating the socket
-	sock = socket(PF_INET,SOCK_STREAM,IPPROTO_TCP);
+	sock = socket(PF_INET,SOCK_STREAM,IPPROTO_TCP); //!!! euh josh ne faut il pas utiliser AF_INET???
 	if(sock == -1){
-		perror("couldn't create the socket !\n");
+		perror("couldn't create the socket !\n"); // error for socket
 		exit(EXIT_FAILURE);
 	}
 
 	// Binding the socket to previous address
 	if( bind(sock, (struct sockaddr*) &addr, addr_size) == -1){
-		perror("couldn't bind the socket and the adress !\n");
+		perror("couldn't bind the socket and the adress !\n"); //error for bind
 		close(sock);
 		exit(EXIT_FAILURE);
 	}
 
-	// Listening
+	// Listening to discover potential plugs
 	if(listen(sock, 1024) == -1){
-		perror("sock is deaf and cannot listen !");
+		perror("sock is deaf and cannot listen !"); //error for listen
 		close(sock);
 		exit(EXIT_FAILURE);
 	}
-
-
-
 
 
 
 	// Entering the accept-loop
 	while(readSock){
-		// Accepting the next request
+		// Accepting the next request is listening queu
 		readSock = accept(sock, (struct sockaddr *) &addr, &addr_size);
 		if(readSock == -1){
-			perror("couldn't accept request.\n");
+			perror("couldn't accept request.\n"); //error for accept
 			close(readSock);
 			close(sock);
 			exit(EXIT_FAILURE);
@@ -82,7 +79,7 @@ int main(int argc, char* argv[]){
 
 		// Receiving bits
 		if(recv(readSock, buffer, BUFFER_SIZE, 0) == -1){
-			perror("couldn't receive anything");
+			perror("couldn't receive anything"); //error for recv
 			close(readSock);
 			close(sock);
 			exit(EXIT_FAILURE);
@@ -91,7 +88,7 @@ int main(int argc, char* argv[]){
 
 		// Emitting them again
 		if(send(readSock, buffer, BUFFER_SIZE, 0) == -1){
-			perror("couldn't send anything");
+			perror("couldn't send anything"); //error for send
 			close(readSock);
 			close(sock);
 			exit(EXIT_FAILURE);
