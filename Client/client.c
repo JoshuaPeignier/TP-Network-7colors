@@ -32,7 +32,7 @@ int main(int argc, char* argv[]){
 	char buffer[BUFFER_SIZE]; // The buffer where we store what we get from the server
 
 	// Creating the necessary structure to store the address you're trying to connect to
-	memset(&addr, 0, sizeof addr);
+	memset(&addr, 0, sizeof addr); //function discovered on wikipedia that memorises a constant
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(atoi(argv[2]));
 	addr.sin_addr.s_addr = inet_addr(argv[3]);
@@ -61,12 +61,12 @@ int main(int argc, char* argv[]){
 
 
 	// Sending bits and trying to get the back
-	if(send(sock,argv[4],strlen(argv[4])+1,0) == -1){
+	if(send(sock,argv[4],strlen(argv[4])+1,0) == -1){ //send part
 		perror("couldn't send any bits.\n");
 		close(sock);
 		exit(EXIT_FAILURE);
 	}
-	if(recv(sock, buffer, BUFFER_SIZE, 0) == -1){
+	if(recv(sock, buffer, BUFFER_SIZE, 0) == -1){ //receive part
 		perror("couldn't receive anything");
 		close(sock);
 		exit(EXIT_FAILURE);
