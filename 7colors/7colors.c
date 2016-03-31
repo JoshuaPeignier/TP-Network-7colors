@@ -59,7 +59,7 @@ int main()
 			victory1 = 0;
 			victory2 = 0;
 		}  
-		//!!!ici je mettreai previous_mose = mode
+		previous_mode = mode; //then reset the test
 		
 		// If the 2nd player is an AI, we select its level
 		if(mode == 2){
