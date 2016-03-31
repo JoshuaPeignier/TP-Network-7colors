@@ -61,7 +61,7 @@ static int valid_tile(int i, int j){
 	return test;
 }
 
-/* Q3.1 : Returns the color given by a human player on the keyboard*/
+/* Returns the color given by a human player on the keyboard*/
 char your_turn(){
 	char color = 0;
 	do{
@@ -85,7 +85,7 @@ int score(char player){
 	return r;
 }
 
-/* Q3.2 : Returns a boolean-like value, 0 if the game has to stop (e.g. if one player conquered more than half of the grid), 1 if the show must go on */
+/* Returns a boolean-like value, 0 if the game has to stop (e.g. if one player conquered more than half of the grid), 1 if the show must go on */
 int nextturn(){
 	int p1 = score(PLAYER1);
 	int p2 = score(PLAYER2);
