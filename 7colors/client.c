@@ -23,6 +23,7 @@ int main(){
 	int sock; // The socket to connect to the server
 	socklen_t addr_size = sizeof(struct sockaddr_in);
 	char buffer[BUFFER_SIZE]; // The buffer where we store what we get from the server
+	char move;
 	char IP_string[64];
 
 	printf("Please enter the IP address you want to connect to.\n");
@@ -52,10 +53,11 @@ int main(){
 		return 0;
 	}
 
-	printf("Successfully connection to the server.\n");
+	printf("Successful connection to the server.\n");
+	printf("You are player 2 !\n\n\n");
 	recv(sock,buffer,BUFFER_SIZE,0); //get grid
 	get_saved_board(buffer); //save the initial grid
-	//init_window(); //open window
+	init_window(); //open window
 
 	while(nextturn()){
 		update_board(); //display bord
@@ -64,7 +66,12 @@ int main(){
 		printf("\n");
 
 		recv(sock,buffer,BUFFER_SIZE,0); //receive informatition, (player, color) for the turn
-		play(buffer[0],TEMP,buffer[1]); // The move is done here the game is reconstructed.
+		play(PLAYER1,TEMP,buffer[0]); // The move is done here the game is reconstructed.
+		move = your_turn();
+		play(PLAYER2,TEMP,move);
+		buffer[0] = move;
+		buffer[1] = '\0';
+		send(sock,buffer,BUFFER_SIZE,0); 
 	}
 	//end of game update and score
 	update_board();

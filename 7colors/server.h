@@ -8,7 +8,9 @@
 #include <string.h>
 #include <unistd.h>
 
-void bla();
+void bla_spectators();
+
+void bla_player();
 
 void allow_spectators();
 

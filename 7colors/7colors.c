@@ -40,6 +40,7 @@ int main()
 	int difficulty = 0;
 	void (*P2)(char) = NULL; // This will be either an AI or a real player
 
+
 	while(rematch == 1){
 
 		// Selecting a game mode we know
@@ -50,9 +51,12 @@ int main()
 	  		printf("1) Player VS. Player \n");
 	  		printf("2) Player VS. AI\n");
 			printf("3) Spectate an online game\n");
+			printf("4) Host an online game\n");
+			printf("5) Join an online game\n");
+			printf("6) Quit\n");
 			scanf("%d",&mode);
 			printf("\n\n");
-	   	}while(mode < 1 || mode > 3);
+	   	}while(mode < 1 || mode > 6);
 		
 		// If the mode was changed, we reset the score
 		if(previous_mode != mode){
@@ -71,7 +75,7 @@ int main()
 		  		printf("5) Hardestestest\n");
 				scanf("%d",&difficulty);
 				printf("\n\n");
-		  	}while(difficulty < 1 || difficulty > 5);
+		  	}while(difficulty < 1 || difficulty > 6);
 		
 	
 			switch(difficulty){
@@ -101,9 +105,10 @@ int main()
 			else{ban_spectators();} //defined in server.c don't create connections
 
 			// Initialising everything in order to allow spectators to watch
-			if(spectate() == 1){bla();} //if spectator is connected
+			if(spectate() == 1){bla_spectators();} //if spectator is connected
 
 			// Initialising the game
+			// init_window();
 			init_window();
 			random_filling(); //defined in board.c
 			update_board(); //defined in display.c
@@ -136,11 +141,24 @@ int main()
 			}while(rematch < 1 || rematch > 2);
 		}
 		
+		// Hosting an online game
+		else if(mode == 4){
+		}
+
 		// Spectating an online game
-		if(mode == 3){
-			rematch = 0;
+		else if(mode == 3){
+			rematch = 1;
 			system("./spectate"); //switch to spectator.c executable
 		}
+
+		// Joining an online game as a player
+		else if(mode == 5){
+			rematch = 1;
+			system("./client");
+		}
+
+		else if(mode == 6){rematch = 0;}
+	
 	}
 	
 	
