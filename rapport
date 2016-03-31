@@ -35,7 +35,9 @@ Cette factorisation a pour interer que si les autres parties prenante veulent pa
 
 Q2: Modifier le programme pour qu'il choisisse le port 7777 consiste uniquement a le lui imposé dans ces arguments.
 Une fois la connection etabli, on envois grâce a send la grille initial du jeu puis on commence à jouer. On envois a chaque tours les actions des joueurs au client.
-Le client utilise les fonctions énoncé dans la Q1 pour reconstitué la partie en entier. 
+Le client utilise les fonctions énoncé dans la Q1 pour reconstitué la partie en entier.
+
+Ceci fonctionne bien que l'on travaille de 2 terminaux distinct sur un même ordi ou sur deux ordinateur relier à la même adresse IP (nous n'avons pas encore réussi a interarrgir depuis deux localisation trop separer.
  
 \section{References}
 https://en.wikipedia.org/wiki/Berkeley_sockets#accept.28.29
