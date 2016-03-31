@@ -40,7 +40,6 @@ int main()
 	int difficulty = 0; //to choose between several AIs
 	void (*P2)(char) = NULL; // This will be either an AI or a real player
 
-
 	while(rematch == 1){
 
 		// Selecting a game mode we know
@@ -106,7 +105,7 @@ int main()
 			else{ban_spectators();} //defined in server.c don't create connections
 
 			// Initialising everything in order to allow spectators to watch
-			if(spectate() == 1){bla_spectators();} //if spectator is connected
+			if(spectate() == 1){bla/*_spectators*/();} //if spectator is connected
 
 			// Initialising the game
 			// init_window();
@@ -147,15 +146,9 @@ int main()
 		}
 
 		// Spectating an online game
-<<<<<<< HEAD
 		else if(mode == 3){
 			rematch = 1;
 			system("./spectate"); //switch to spectator.c executable
-=======
-		if(mode == 3){
-			rematch = 0;
-			system("./spectate"); //switch to spectator.c 's program'
->>>>>>> 878bb34e221e19e843e69ef291b186631fcc6940
 		}
 
 		// Joining an online game as a player

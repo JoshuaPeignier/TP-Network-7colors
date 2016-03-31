@@ -20,6 +20,6 @@ int spectate();
 
 void send_board();
 
-void send_move(char player, char color);
+void send_move(char player);
 
 void spectators_quit();

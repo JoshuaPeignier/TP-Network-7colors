@@ -40,7 +40,6 @@ int main()
 	int difficulty = 0; //to choose between several AIs
 	void (*P2)(char) = NULL; // This will be either an AI or a real player
 
-
 	while(rematch == 1){
 
 		// Selecting a game mode we know
@@ -76,7 +75,7 @@ int main()
 		  		printf("5) Hardestestest\n");
 				scanf("%d",&difficulty);
 				printf("\n\n");
-		  	}while(difficulty < 1 || difficulty > 6);
+		  	}while(difficulty < 1 || difficulty > 5);
 		
 	
 			switch(difficulty){ //chose the AI's stategy that is defined in stategy.c
@@ -106,7 +105,7 @@ int main()
 			else{ban_spectators();} //defined in server.c don't create connections
 
 			// Initialising everything in order to allow spectators to watch
-			if(spectate() == 1){bla_spectators();} //if spectator is connected
+			if(spectate() == 1){bla/*_spectators*/();} //if spectator is connected
 
 			// Initialising the game
 			// init_window();

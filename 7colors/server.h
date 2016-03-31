@@ -8,9 +8,11 @@
 #include <string.h>
 #include <unistd.h>
 
-void bla_spectators();
+void bla();
 
-void bla_player();
+//void bla_spectators();
+
+//void bla_player();
 
 void allow_spectators();
 
@@ -20,6 +22,6 @@ int spectate();
 
 void send_board();
 
-void send_move(char player, char color);
+void send_move(char player);
 
 void spectators_quit();
