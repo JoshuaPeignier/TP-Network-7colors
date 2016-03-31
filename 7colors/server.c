@@ -19,6 +19,7 @@ struct sockaddr_in addr; // The variable which contains each piece of informatio
 socklen_t addr_size;
 char buffer[BUFFER_SIZE];
 int allow_spectate = 0;
+int yes = 1;
 
 // Bind-Listen-Accept
 void bla(){
@@ -33,6 +34,12 @@ void bla(){
 	sock = socket(PF_INET,SOCK_STREAM,IPPROTO_TCP); //!!! AF est une generalisation de PF (essayons de remplacer)
 	if(sock == -1){
 		perror("couldn't create the socket !\n");
+		exit(EXIT_FAILURE);
+	}
+
+	// Avoiding the "address already in use" error
+	if(setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int)) == -1) {
+		perror("couldn't avoid the 'address already in use' error");
 		exit(EXIT_FAILURE);
 	}
 
