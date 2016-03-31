@@ -66,7 +66,7 @@ void print_board()
    }
 }
 
-/* Q2.1 : Randomly fills each tile with a color */
+/* Randomly fills each tile with a color */
 void random_filling(){
 	int i = 0;
 	int j = 0;
