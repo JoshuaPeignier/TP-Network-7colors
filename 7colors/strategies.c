@@ -7,6 +7,7 @@
 #include "board.h"
 #include "server.h"
 
+//players and board parameters are defined in board
 
 /*makes the player play the given color ;  temp argument is used only for simulation purposes,
 to test what would happen if you played a color */
@@ -47,11 +48,11 @@ void random_play(char player){
 
 /*The improved random strategy, where the AI only plays colors that allows it to gain tiles */
 void improved_random_play(char player){
-	int sc = score(player);
+	int sc = score(player); //definied in auxilary.c
 	char color='A';
 	int stuck =0;
 	int i,j;
-	while(color < 'A' + NB_COLORS && stuck ==0){ // this part makes sure there exists a color that allows to gain tiles 
+	while(color < 'A' + NB_COLORS && stuck ==0){ // this part makes sure there exists a color that allows to gain tiles (described in greedy)
 		play(TEMP,player,color);
 			if(score(TEMP) > 0){
 				stuck = 1;
@@ -97,7 +98,7 @@ void greedy(char player){
 		int j = 0;
 		/* Getting rid of the emulation, by setting all TEMP-tiles to the color we supposed the player would play */
 		for(i = 0 ; i < BOARD_SIZE ; i++){
-			for(j = 0 ; j < BOARD_SIZE ; j++){
+			for(j = 0 ; j < BOARD_SIZE ; j++){//get_cell and set_sell defined in auxillary.
 				if(get_cell(i,j) == TEMP){
 					set_cell(i,j,color);
 				}
@@ -125,7 +126,7 @@ void spider(char player){
 		play(TEMP,player,color);
 
 		// Computing the size of the new border, and the score you would get
-		bd = border_size(player,TEMP);
+		bd = border_size(player,TEMP); //defined in auxilary
 		sk = score(player) + score(TEMP);
 
 		// Take note that if all moves decrease the length of your border compared to the current length (without TEMP), you play the one who keep the coming border at maximum length
