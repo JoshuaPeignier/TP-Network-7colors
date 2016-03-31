@@ -32,18 +32,18 @@ int main()
 
 
 	// Initialising everything necessary variables for the game
-	int victory1 = 0;
-	int victory2 = 0;
-	int mode = 0;
+	int victory1 = 0; //number of victories of PLAYER1
+	int victory2 = 0; //number of victories of PLAYER2
+	int mode = 0; //terminal's purpose for the durantion of the game (host player, )
 	int previous_mode = 0; // This is here to reset the score, in case we switch between AI player and a real player
 	int rematch = 1;
-	int difficulty = 0;
+	int difficulty = 0; //to choose between several AIs
 	void (*P2)(char) = NULL; // This will be either an AI or a real player
 
 	while(rematch == 1){
 
 		// Selecting a game mode we know
-		previous_mode = mode;
+		previous_mode = mode; //!!!pourquoi ici, je l'aurais mis plus bas
 	 	do{
 	   		printf("Which mode do you want to play ?\n");
 			printf("Please take note that switching mode will reset your score.\n");
@@ -59,7 +59,8 @@ int main()
 			victory1 = 0;
 			victory2 = 0;
 		}  
-
+		//!!!ici je mettreai previous_mose = mode
+		
 		// If the 2nd player is an AI, we select its level
 		if(mode == 2){
 			do{
@@ -74,7 +75,7 @@ int main()
 		  	}while(difficulty < 1 || difficulty > 5);
 		
 	
-			switch(difficulty){
+			switch(difficulty){ //chose the AI's stategy defined in stategy.c according to the how suicidal you are
 				case 1: P2 = &improved_random_play; break;
 				case 2: P2 = &spider; break;
 				case 3: P2 = &greedy; break;
@@ -83,7 +84,7 @@ int main()
 			}
 		}
 		else{
-			P2 = &real_play;
+			P2 = &real_play; //defined in strategy.c
 		}
 	
 		// If we are running a game on this computer
@@ -107,12 +108,12 @@ int main()
 			init_window();
 			random_filling(); //defined in board.c
 			update_board(); //defined in display.c
-			if(spectate() == 1){send_board();} // sending your initail bord to spectator (used in spectator.c)
+			if(spectate() == 1){send_board();} // sending your initail bord to spectator (recv in spectator.c)
 
 			// Running the game and printing the scores
-			run_game(PLAYER1,&real_play,P2); //defined in stategy.c
+			run_game(PLAYER1,&real_play,P2); //defined in stategy.c (PLAYER is a char defined in board.c)
 			update_board();
-			printf("Player 1 : %d\n",score(PLAYER1));
+			printf("Player 1 : %d\n",score(PLAYER1)); //defined in auxilary.c
 			printf("Player 2 : %d\n",score(PLAYER2));
 				printf("\n");
 			if(score(PLAYER1) > score(PLAYER2)){victory1++;}
@@ -122,7 +123,7 @@ int main()
 			printf("Player 2 : %d victories\n",victory2);
 
 			if(spectate() == 1){ //sending the spectator off
-				spectators_quit();
+				spectators_quit(); //defined in server.c
 			}
 
 
@@ -139,7 +140,7 @@ int main()
 		// Spectating an online game
 		if(mode == 3){
 			rematch = 0;
-			system("./spectate"); //switch to spectator.c executable
+			system("./spectate"); //switch to spectator.c 's program'
 		}
 	}
 	
