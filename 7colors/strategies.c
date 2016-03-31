@@ -8,7 +8,8 @@
 #include "server.h"
 
 
-/* Q2.2 : makes the player play the given color ;  temp argument is used only for simulation purposes, to test what would happen if you played a color */
+/*makes the player play the given color ;  temp argument is used only for simulation purposes,
+to test what would happen if you played a color */
 void play(char player, char temp, char color){
 	int i = 0;
 	int j = 0;
@@ -30,21 +31,21 @@ void play(char player, char temp, char color){
 
 
 
-/* Q3.1 : The "real-player" strategy, used for human players */
+/* The "real-player" strategy, used for human players */
 void real_play(char player){
 	char color = your_turn();
 	play(player,TEMP,color);
 	if(spectate() == 1){send_move(player, color);}
 }
 
-/* Q4.1 : The full-random strategy */
+/* The full-random strategy */
 void random_play(char player){
 	char color = 'A'+(random()%(NB_COLORS));
 	play(player,TEMP,color);
 	if(spectate() == 1){send_move(player, color);}
 }
 
-/* Q4.2 : The improved random strategy, where the AI only plays colors that allows it to gain tiles */
+/*The improved random strategy, where the AI only plays colors that allows it to gain tiles */
 void improved_random_play(char player){
 	int sc = score(player);
 	char color='A';
@@ -73,7 +74,7 @@ void improved_random_play(char player){
 
 }
 
-/* Q5.1 : The greedy strategy */
+/* The greedy strategy */
 void greedy(char player){
 	/* A basic maximum-search, where the value we have to maximise is the number of tiles we can gain, e.g. the potental score we can have. */
 	int sc = score(player);
@@ -109,7 +110,7 @@ void greedy(char player){
 }
 
 
-// Q6.1 The spider player, who plays the color which gives him the largest border
+// The spider player, who plays the color which gives him the largest border
 void spider(char player){
 	/* A basic maximum-search, where the value we have to maximise is the number of tiles we can gain, e.g. the potential border length */
 	int max_bd = 0;
@@ -167,7 +168,7 @@ void spider(char player){
 
 
 
-/* Q6.2 : The visionnary greedy strategy */
+/*The visionnary greedy strategy */
 void double_greedy(char player){
 	/* A basic maximum-search, where the value we have to maximise is the number of tiles we can gain, e.g. the potental score we can have. */
 	int sc = score(player);
