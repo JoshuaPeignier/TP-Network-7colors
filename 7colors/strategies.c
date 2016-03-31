@@ -8,6 +8,7 @@
 #include "server.h"
 
 //players and board parameters are defined in board
+extern char current_color; // This is only used on online mode ; it's the color we shall send.
 
 /*makes the player play the given color ;  temp argument is used only for simulation purposes,
 to test what would happen if you played a color */
@@ -324,7 +325,7 @@ static void strategy(char current_player, void (*strat1)(char), void (*strat2)(c
 	else{
 		(*strat2)(current_player);
 	}
-	if(spectate() == 1){send_move(current_player);} // The movement is sent here to the spectator
+	if(spectate() == 1){send_move_spectators(current_player);} // The movement is sent here to the spectator
 }
 
 /* Also here to simplify our tests ; runs the game according to the given strategies */

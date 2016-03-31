@@ -67,6 +67,7 @@ int main(){
 
 		recv(sock,buffer,BUFFER_SIZE,0); //receive informatition, (player, color) for the turn
 		play(PLAYER1,TEMP,buffer[0]); // The move is done here the game is reconstructed.
+		update_board();
 		move = your_turn();
 		play(PLAYER2,TEMP,move);
 		buffer[0] = move;

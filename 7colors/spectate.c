@@ -63,7 +63,11 @@ int main(){
 		printf("Player 2 : %d\n",score(PLAYER2));
 		printf("\n");
 
-		recv(sock,buffer,BUFFER_SIZE,0); //receive informatition, (player, color) for the turn
+		if(recv(sock,buffer,BUFFER_SIZE,0) == -1){ //receive informatition, (player, color) for the turn
+			perror("couldn't receive anything");
+			close(sock);
+			exit(EXIT_FAILURE);
+		}
 		play(buffer[0],TEMP,buffer[1]); // The move is done here the game is reconstructed.
 	}
 	//end of game update and score

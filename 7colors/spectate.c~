@@ -55,7 +55,7 @@ int main(){
 	printf("Successfully connection to the server.\n");
 	recv(sock,buffer,BUFFER_SIZE,0); //get grid
 	get_saved_board(buffer); //save the initial grid
-	//init_window(); //open window
+	init_window(); //open window
 
 	while(nextturn()){
 		update_board(); //display bord
@@ -63,7 +63,9 @@ int main(){
 		printf("Player 2 : %d\n",score(PLAYER2));
 		printf("\n");
 
-		recv(sock,buffer,BUFFER_SIZE,0); //receive informatition, (player, color) for the turn
+		if(recv(sock,buffer,BUFFER_SIZE,0) == -1){ //receive informatition, (player, color) for the turn
+			perror("couldn't receive anything");
+		}
 		play(buffer[0],TEMP,buffer[1]); // The move is done here the game is reconstructed.
 	}
 	//end of game update and score

@@ -39,6 +39,8 @@ int main()
 	int rematch = 1;
 	int difficulty = 0; //to choose between several AIs
 	void (*P2)(char) = NULL; // This will be either an AI or a real player
+	char move = 0;
+	extern char current_color;
 
 	while(rematch == 1){
 
@@ -107,11 +109,10 @@ int main()
 			if(spectate() == 1){bla_spectators();} //if spectator is connected
 
 			// Initialising the game
-			// init_window();
 			init_window();
 			random_filling(); //defined in board.c
 			update_board(); //defined in display.c
-			if(spectate() == 1){send_board();} // sending your initail bord to spectator (recv in spectator.c)
+			if(spectate() == 1){send_board_spectators();} // sending your initail bord to spectator (recv in spectator.c)
 
 			// Running the game and printing the scores
 			run_game(PLAYER1,&real_play,P2); //defined in stategy.c (PLAYER is a char defined in board.c)
@@ -142,6 +143,35 @@ int main()
 		
 		// Hosting an online game
 		else if(mode == 4){
+			bla_player();
+			// Initialising the game
+			init_window();
+			random_filling(); //defined in board.c
+			update_board(); //defined in display.c
+			send_board_player();
+
+			while(nextturn()){
+				update_board(); //display bord
+				printf("Player 1 : %d\n",score(PLAYER1));
+				printf("Player 2 : %d\n",score(PLAYER2));
+				printf("\n");
+				
+				move = your_turn();
+				current_color = move;
+				play(PLAYER1,TEMP,move); // The move is done here the game is reconstructed.
+				update_board();
+				send_move_player();
+				play(PLAYER2,TEMP,recv_move_player());
+			}
+
+			//end of game update and score
+			update_board();
+			printf("Player 1 : %d\n",score(PLAYER1));
+			printf("Player 2 : %d\n",score(PLAYER2));
+			printf("\n");
+			printf("Press a key, then Enter to quit");
+			getchar();
+			rematch = 1;
 		}
 
 		// Spectating an online game
