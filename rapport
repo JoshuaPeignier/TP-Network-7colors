@@ -41,5 +41,6 @@ Ceci fonctionne bien que l'on travaille de 2 terminaux distinct sur un même ord
  
 \section{References}
 https://en.wikipedia.org/wiki/Berkeley_sockets#accept.28.29
+http://beej.us/guide/bgnet/output/html/singlepage/bgnet.html
 
 \end{document}
