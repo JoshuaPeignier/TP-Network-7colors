@@ -31,9 +31,9 @@ int main(){
 	}while(inet_addr(IP_string) <= 0);
 
 	// Creating the necessary structure to store the address you're trying to connect to
-	memset(&addr, 0, sizeof addr);
+	memset(&addr, 0, sizeof addr); //creates a memory space in which to store the constant for address
 	addr.sin_family = AF_INET;
-	addr.sin_port = htons(7777);
+	addr.sin_port = htons(7777); // the port dedicated to observers
 	addr.sin_addr.s_addr = inet_addr(IP_string);
 	inet_pton(AF_INET, inet_ntoa(addr.sin_addr), &addr.sin_addr);
 
@@ -41,32 +41,32 @@ int main(){
 
 
 	// Creating the client socket
-	sock = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
+	sock = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP); // AF_INET is the protocol domain, SOCK_STREAM indicates we want a two way connection and IPROTO8TCP is the protocol
 	if(sock == -1){
 		printf("Error : couldn't create the socket !");
 		return 0;
 	}
-	// Connexion test
+	// Connexion to the server
 	if(connect(sock,(struct sockaddr *)&addr,addr_size) == -1){
-		printf("Error : couldn't connect to the server socket !\n");
+		printf("Error : couldn't connect to the server socket !\n"); //error
 		return 0;
 	}
 
 	printf("Successfully connection to the server.\n");
-	recv(sock,buffer,BUFFER_SIZE,0);
-	get_saved_board(buffer);
-	init_window();
+	recv(sock,buffer,BUFFER_SIZE,0); //get grid
+	get_saved_board(buffer); //save the initial grid
+	init_window(); //open window
 
 	while(nextturn()){
-		update_board();
+		update_board(); //display bord
 		printf("Player 1 : %d\n",score(PLAYER1));
 		printf("Player 2 : %d\n",score(PLAYER2));
 		printf("\n");
 
-		recv(sock,buffer,BUFFER_SIZE,0);
-		play(buffer[0],TEMP,buffer[1]); // The move is done here.
+		recv(sock,buffer,BUFFER_SIZE,0); //receive informatition, (player, color) for the turn
+		play(buffer[0],TEMP,buffer[1]); // The move is done here the game is reconstructed.
 	}
-
+	//end of game update and score
 	update_board();
 	printf("Player 1 : %d\n",score(PLAYER1));
 	printf("Player 2 : %d\n",score(PLAYER2));
@@ -74,7 +74,7 @@ int main(){
 	printf("Press a key, then Enter to quit");
 	getchar();
 
-
+	//leaving the game
 	(void)shutdown(sock, SHUT_RDWR);
 	close(sock);
 	SDL_Quit();
