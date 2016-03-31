@@ -75,7 +75,7 @@ int main(){
 	getchar();
 
 	//leaving the game
-	(void)shutdown(sock, SHUT_RDWR);
+	shutdown(sock, SHUT_RDWR);
 	close(sock);
 	SDL_Quit();
 	return 0;

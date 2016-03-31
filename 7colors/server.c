@@ -24,7 +24,7 @@ int allow_spectate = 0;
 void bla(){
 	// Creating the necessary structure to store the address you want to connect to
 	addr_size = sizeof(struct sockaddr_in);
-	memset(&addr, 0, sizeof addr); //memorizes a constant (thanks wikipia)
+	memset(&addr, 0, sizeof addr); //memorizes a constant (thanks wikipedia)
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(7777); // the port that will be used one the connection is etablished (hopefully wll bring luck)
 	addr.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -92,6 +92,8 @@ void send_move(char player, char color){
 }
 
 void spectators_quit(){
+	shutdown(sock, SHUT_RDWR);
+	shutdown(readSock, SHUT_RDWR);
 	close(readSock);
 	close(sock);
 }
