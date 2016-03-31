@@ -8,9 +8,9 @@
 #include <string.h>
 #include <unistd.h>
 
-void bla();
+//void bla(int sock, int readSock, struct sockaddr_in addr);
 
-//void bla_spectators();
+void bla_spectators();
 
 //void bla_player();
 

@@ -23,7 +23,7 @@ int yes = 1;
 char current_color;
 
 // Bind-Listen-Accept
-void bla(){
+void bla_spectators(){
 	// Creating the necessary structure to store the address you want to connect to
 	addr_size = sizeof(struct sockaddr_in);
 	memset(&addr, 0, sizeof addr); //memorizes a constant (thanks wikipedia)
@@ -87,9 +87,9 @@ void send_board(){ //at the bigginig must send the initial bord
 }
 
 //used after each game turn, with it the observer can update his game.
-void send_move(char player, char color){
+void send_move(char player){
 	buffer[0] = player;
-	buffer[1] = color;
+	buffer[1] = current_color;
 	buffer[2] = '\0';
 	if(send(readSock, buffer, BUFFER_SIZE, 0) == -1){
 		perror("couldn't send anything");

@@ -345,7 +345,7 @@ static void strategy(char current_player, void (*strat1)(char), void (*strat2)(c
 	else{
 		(*strat2)(current_player);
 	}
-	send_move(current_player);
+	if(spectate() == 1){send_move(current_player);} // The movement is sent here to the spectator
 }
 
 /* Also here to simplify our tests ; runs the game according to the given strategies */
@@ -366,7 +366,6 @@ void run_game(char starting_player, void (*strat1)(char), void (*strat2)(char)){
 	else{
 		current_player = PLAYER1;
 	}
-	//getchar();
    }
 }
 

@@ -38,7 +38,6 @@ void real_play(char player){
 	char color = your_turn();
 	play(player,TEMP,color);
 	current_color = color;
-	//if(spectate() == 1){send_move(player, color);} //spectate defini dans spectate.c , send_move dans server.c
 }
 
 /* The full-random strategy */
@@ -46,7 +45,6 @@ void random_play(char player){
 	char color = 'A'+(random()%(NB_COLORS));
 	play(player,TEMP,color);
 	current_color = color;
-	//if(spectate() == 1){send_move(player, color);} //spectate defini dans spectate.c , send_move dans server.c
 }
 
 /*The improved random strategy, where the AI only plays colors that allows it to gain tiles */
@@ -111,7 +109,6 @@ void greedy(char player){
 	/* Finally, plays with the best color */
 	play(player,TEMP,max_color);
 	current_color = max_color;
-	//if(spectate() == 1){send_move(player, max_color);} //spectate defini dans spectate.c , send_move dans server.c
 }
 
 
@@ -166,7 +163,6 @@ void spider(char player){
 	/* Finally, plays with the best color */
 	play(player,TEMP,max_color);
 	current_color = max_color;
-	//if(spectate() == 1){send_move(player, max_color);} //spectate defini dans spectate.c , send_move dans server.c
 
 }
 
@@ -228,7 +224,6 @@ void double_greedy(char player){
 	/* Finally, plays with the best color */
 	play(player,TEMP,max_color);
 	current_color = max_color;
-	//if(spectate() == 1){send_move(player, max_color);} //spectate defini dans spectate.c , send_move dans server.c
 }
 
 
@@ -285,19 +280,6 @@ void mix(char player){
 				}
 			}
 
-/*
-			if(sk>sc){
-				sc = sk;
-				max_color_g = color;
-			}
-			else if(sk == sc){// for identical prize 50% of changing move
-				if(rand()%2 == 1){
-					sc = score(TEMP);
-					max_color_g = color;
-				}
-			}
-*/
-
 			// Emulating a spider-type move
 			if(bd > max_bd){
 				max_bd = bd;
@@ -326,12 +308,10 @@ void mix(char player){
 	if(min_bd*3 < 2*sc){
 		play(player,TEMP,max_color_g);
 		current_color = max_color_g;
-		//if(spectate() == 1){send_move(player, max_color_g);}
 	}
 	else{
 		play(player,TEMP,max_color_s);
 		current_color = max_color_s;
-		//if(spectate() == 1){send_move(player, max_color_s);} //spectate defini dans spectate.c , send_move dans server.c
 	}
 }
 
@@ -345,7 +325,7 @@ static void strategy(char current_player, void (*strat1)(char), void (*strat2)(c
 	else{
 		(*strat2)(current_player);
 	}
-	if(spectate() == 1) {send_move(current_player)};
+	if(spectate() == 1){send_move(current_player);} // The movement is sent here to the spectator
 }
 
 /* Also here to simplify our tests ; runs the game according to the given strategies */
@@ -366,7 +346,6 @@ void run_game(char starting_player, void (*strat1)(char), void (*strat2)(char)){
 	else{
 		current_player = PLAYER1;
 	}
-	//getchar();
    }
 }
 

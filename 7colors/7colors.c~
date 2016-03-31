@@ -43,7 +43,6 @@ int main()
 	while(rematch == 1){
 
 		// Selecting a game mode we know
-		previous_mode = mode; //!!!pourquoi ici, je l'aurais mis plus bas
 	 	do{
 	   		printf("Which mode do you want to play ?\n");
 			printf("Please take note that switching mode will reset your score.\n");
@@ -75,7 +74,7 @@ int main()
 		  		printf("5) Hardestestest\n");
 				scanf("%d",&difficulty);
 				printf("\n\n");
-		  	}while(difficulty < 1 || difficulty > 6);
+		  	}while(difficulty < 1 || difficulty > 5);
 		
 	
 			switch(difficulty){ //chose the AI's stategy that is defined in stategy.c

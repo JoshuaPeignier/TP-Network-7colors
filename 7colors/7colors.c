@@ -43,7 +43,6 @@ int main()
 	while(rematch == 1){
 
 		// Selecting a game mode we know
-		previous_mode = mode; //!!!pourquoi ici, je l'aurais mis plus bas
 	 	do{
 	   		printf("Which mode do you want to play ?\n");
 			printf("Please take note that switching mode will reset your score.\n");
@@ -105,7 +104,7 @@ int main()
 			else{ban_spectators();} //defined in server.c don't create connections
 
 			// Initialising everything in order to allow spectators to watch
-			if(spectate() == 1){bla/*_spectators*/();} //if spectator is connected
+			if(spectate() == 1){bla_spectators();} //if spectator is connected
 
 			// Initialising the game
 			// init_window();
