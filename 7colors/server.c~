@@ -10,6 +10,7 @@
 #include "board.h"
 
 #define BUFFER_SIZE 1000
+#define MAX_SPECTATORS 16
 
 // Initialising everything necessary for online interactions
 socklen_t addr_size;
@@ -196,6 +197,7 @@ char recv_move_player(){
 		close(playerSock);
 		exit(EXIT_FAILURE);
 	}
+	return buffer[0];
 }
 
 void online_player_quit(){

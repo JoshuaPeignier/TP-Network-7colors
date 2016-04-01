@@ -10,6 +10,7 @@
 #include "board.h"
 
 #define BUFFER_SIZE 1000
+#define MAX_SPECTATORS 16
 
 // Initialising everything necessary for online interactions
 socklen_t addr_size;
@@ -119,7 +120,7 @@ void bla_player(){
 	addr_size = sizeof(struct sockaddr_in);
 	memset(&playerAddr, 0, sizeof playerAddr); //memorizes a constant (thanks wikipedia)
 	playerAddr.sin_family = AF_INET;
-	playerAddr.sin_port = htons(7777); // the port that will be used one the connection is etablished (hopefully wll bring luck)
+	playerAddr.sin_port = htons(7778); // the port that will be used one the connection is etablished (hopefully wll bring luck)
 	playerAddr.sin_addr.s_addr = htonl(INADDR_ANY);
 
 	// Creating the socket

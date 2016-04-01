@@ -34,7 +34,7 @@ int main(){
 	// Creating the necessary structure to store the address you're trying to connect to
 	memset(&addr, 0, sizeof addr); //creates a memory space in which to store the constant for address
 	addr.sin_family = AF_INET;
-	addr.sin_port = htons(7777); // the port dedicated to observers
+	addr.sin_port = htons(6666); // the port dedicated to observers
 	addr.sin_addr.s_addr = inet_addr(IP_string);
 	inet_pton(AF_INET, inet_ntoa(addr.sin_addr), &addr.sin_addr);
 
