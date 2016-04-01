@@ -34,13 +34,13 @@ int main()
 	// Initialising everything necessary variables for the game
 	int victory1 = 0; //number of victories of PLAYER1
 	int victory2 = 0; //number of victories of PLAYER2
-	int mode = 0; //terminal's purpose for the durantion of the game (host player, )
-	int previous_mode = 0; // This is here to reset the score, in case we switch between AI player and a real player
-	int rematch = 1;
-	int difficulty = 0; //to choose between several AIs
+	char mode = '0'; //terminal's purpose for the durantion of the game (host player, )
+	char previous_mode = '0'; // This is here to reset the score, in case we switch between AI player and a real player
+	char rematch = '1';
+	char difficulty = '0'; //to choose between several AIs
 	void (*P2)(char) = NULL; // This will be either an AI or a real player
 
-	while(rematch == 1){
+	while(rematch == '1'){
 
 		// Selecting a game mode we know
 	 	do{
@@ -52,9 +52,9 @@ int main()
 			printf("4) Host an online game\n");
 			printf("5) Join an online game\n");
 			printf("6) Quit\n");
-			scanf("%d",&mode);
+			scanf("%c",&mode);
 			printf("\n\n");
-	   	}while(mode < 1 || mode > 6);
+	   	}while(mode < '1' || mode > '6');
 		
 		// If the mode was changed, we reset the score
 		if(previous_mode != mode){
@@ -64,7 +64,7 @@ int main()
 		previous_mode = mode; //then reset the test
 		
 		// If the 2nd player is an AI, we select its level
-		if(mode == 2){
+		if(mode == '2'){
 			do{
 		   		printf("Which difficulty do you want to play with ?\n");
 		  		printf("1) Hard\n");
@@ -72,17 +72,17 @@ int main()
 		  		printf("3) Hardest\n");
 		  		printf("4) Hardestest\n");
 		  		printf("5) Hardestestest\n");
-				scanf("%d",&difficulty);
+				scanf("%c",&difficulty);
 				printf("\n\n");
-		  	}while(difficulty < 1 || difficulty > 5);
+		  	}while(difficulty < '1' || difficulty > '5');
 		
 	
 			switch(difficulty){ //chose the AI's stategy that is defined in stategy.c
-				case 1: P2 = &improved_random_play; break;
-				case 2: P2 = &spider; break;
-				case 3: P2 = &greedy; break;
-				case 4: P2 = &double_greedy; break;
-				case 5: P2 = &mix; break;
+				case '1': P2 = &improved_random_play; break;
+				case '2': P2 = &spider; break;
+				case '3': P2 = &greedy; break;
+				case '4': P2 = &double_greedy; break;
+				case '5': P2 = &mix; break;
 			}
 		}
 		else{
@@ -90,17 +90,17 @@ int main()
 		}
 	
 		// If we are running a game on this computer
-		if(mode == 1 || mode == 2){
+		if(mode == '1' || mode == '2'){
 			char sp = 0;
 			// Verifying if we allow spectators
 			printf("Allow spectators\n");
 			printf("1) Yes\n");
 			printf("2) No\n");
 			do{
-				scanf("%d",&sp);
-			}while(sp < 1 || sp > 2);
+				scanf("%c",&sp);
+			}while(sp < '1' || sp > '2');
 			
-			if(sp == 1){allow_spectators();} //defined in server.c start creating a connection
+			if(sp == '1'){allow_spectators();} //defined in server.c start creating a connection
 			else{ban_spectators();} //defined in server.c don't create connections
 
 			// Initialising everything in order to allow spectators to watch
@@ -135,26 +135,26 @@ int main()
 		
 			// Asking for a rematch
 			do{
-				scanf("%d",&rematch);
-			}while(rematch < 1 || rematch > 2);
+				scanf("%c",&rematch);
+			}while(rematch < '1' || rematch > '2');
 		}
 		
 		// Spectating an online game
-		else if(mode == 3){
+		else if(mode == '3'){
 			system("./spectate"); //switch to spectator.c executable
 		}
 
 		// Hosting an online game
-		else if(mode == 4){
+		else if(mode == '4'){
 			system("./host");
 		}
 
 		// Joining an online game as a player
-		else if(mode == 5){
+		else if(mode == '5'){
 			system("./client");
 		}
 
-		else if(mode == 6){rematch = 0;}
+		else if(mode == '6'){rematch = '0';}
 	
 	}
 	
