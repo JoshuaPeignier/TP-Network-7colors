@@ -325,6 +325,7 @@ static void strategy(char current_player, void (*strat1)(char), void (*strat2)(c
 	else{
 		(*strat2)(current_player);
 	}
+	//accept_new_spectators();
 	if(spectate() == 1){send_move_spectators(current_player);} // The movement is sent here to the spectator
 }
 
@@ -336,7 +337,6 @@ void run_game(char starting_player, void (*strat1)(char), void (*strat2)(char)){
 	printf("Player 1 : %d\n",score(PLAYER1));
 	printf("Player 2 : %d\n",score(PLAYER2));
 	printf("\n");
-
 	strategy(current_player,strat1,strat2); // The move is done here.
 
 	// Switching player at the end of each turn.

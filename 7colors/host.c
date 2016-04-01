@@ -21,7 +21,7 @@ int main(){
 	extern char current_color;
 
 	printf("Waiting for a player to connect...\n");
-	bla_player();
+	bind_listen_player();
 	printf("Player connected.\n\n");
 	// Initialising the game
 	init_window();

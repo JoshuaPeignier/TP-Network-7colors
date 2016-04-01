@@ -104,7 +104,7 @@ int main()
 			else{ban_spectators();} //defined in server.c don't create connections
 
 			// Initialising everything in order to allow spectators to watch
-			if(spectate() == 1){bla_spectators();} //if spectator is connected
+			if(spectate() == 1){bind_listen_spectators(); /*accept_new_spectators();*/} //if spectator is connected
 
 			// Initialising the game
 			init_window();
