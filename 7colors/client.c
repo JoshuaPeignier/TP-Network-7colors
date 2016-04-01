@@ -68,11 +68,13 @@ int main(){
 		recv(sock,buffer,BUFFER_SIZE,0); //receive informatition, (player, color) for the turn
 		play(PLAYER1,TEMP,buffer[0]); // The move is done here the game is reconstructed.
 		update_board();
-		move = your_turn();
-		play(PLAYER2,TEMP,move);
-		buffer[0] = move;
-		buffer[1] = '\0';
-		send(sock,buffer,BUFFER_SIZE,0); 
+		if(nextturn()){
+			move = your_turn();
+			play(PLAYER2,TEMP,move);
+			buffer[0] = move;
+			buffer[1] = '\0';
+			send(sock,buffer,BUFFER_SIZE,0); 
+		}
 	}
 	//end of game update and score
 	update_board();

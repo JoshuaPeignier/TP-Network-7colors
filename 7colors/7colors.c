@@ -39,8 +39,6 @@ int main()
 	int rematch = 1;
 	int difficulty = 0; //to choose between several AIs
 	void (*P2)(char) = NULL; // This will be either an AI or a real player
-	char move = 0;
-	extern char current_color;
 
 	while(rematch == 1){
 
@@ -141,48 +139,18 @@ int main()
 			}while(rematch < 1 || rematch > 2);
 		}
 		
-		// Hosting an online game
-		else if(mode == 4){
-			bla_player();
-			// Initialising the game
-			init_window();
-			random_filling(); //defined in board.c
-			update_board(); //defined in display.c
-			send_board_player();
-
-			while(nextturn()){
-				update_board(); //display bord
-				printf("Player 1 : %d\n",score(PLAYER1));
-				printf("Player 2 : %d\n",score(PLAYER2));
-				printf("\n");
-				
-				move = your_turn();
-				current_color = move;
-				play(PLAYER1,TEMP,move); // The move is done here the game is reconstructed.
-				update_board();
-				send_move_player();
-				play(PLAYER2,TEMP,recv_move_player());
-			}
-
-			//end of game update and score
-			update_board();
-			printf("Player 1 : %d\n",score(PLAYER1));
-			printf("Player 2 : %d\n",score(PLAYER2));
-			printf("\n");
-			printf("Press a key, then Enter to quit");
-			getchar();
-			rematch = 1;
-		}
-
 		// Spectating an online game
 		else if(mode == 3){
-			rematch = 1;
 			system("./spectate"); //switch to spectator.c executable
+		}
+
+		// Hosting an online game
+		else if(mode == 4){
+			system("./host");
 		}
 
 		// Joining an online game as a player
 		else if(mode == 5){
-			rematch = 1;
 			system("./client");
 		}
 
