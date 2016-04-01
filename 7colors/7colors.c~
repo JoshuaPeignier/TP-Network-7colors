@@ -34,10 +34,10 @@ int main()
 	// Initialising everything necessary variables for the game
 	int victory1 = 0; //number of victories of PLAYER1
 	int victory2 = 0; //number of victories of PLAYER2
-	int mode = 0; //terminal's purpose for the durantion of the game (host player, )
-	int previous_mode = 0; // This is here to reset the score, in case we switch between AI player and a real player
-	int rematch = 1;
-	int difficulty = 0; //to choose between several AIs
+	char mode = 0; //terminal's purpose for the durantion of the game (host player, )
+	char previous_mode = 0; // This is here to reset the score, in case we switch between AI player and a real player
+	char rematch = 1;
+	char difficulty = 0; //to choose between several AIs
 	void (*P2)(char) = NULL; // This will be either an AI or a real player
 
 	while(rematch == 1){
@@ -139,14 +139,14 @@ int main()
 			}while(rematch < 1 || rematch > 2);
 		}
 		
-		// Hosting an online game
-		else if(mode == 4){
-			system("./host");
-		}
-
 		// Spectating an online game
 		else if(mode == 3){
 			system("./spectate"); //switch to spectator.c executable
+		}
+
+		// Hosting an online game
+		else if(mode == 4){
+			system("./host");
 		}
 
 		// Joining an online game as a player
