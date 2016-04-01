@@ -52,7 +52,7 @@ int main()
 			printf("4) Host an online game\n");
 			printf("5) Join an online game\n");
 			printf("6) Quit\n");
-			scanf("%d",&mode);
+			scanf("%c",&mode);
 			printf("\n\n");
 	   	}while(mode < 1 || mode > 6);
 		
@@ -72,7 +72,7 @@ int main()
 		  		printf("3) Hardest\n");
 		  		printf("4) Hardestest\n");
 		  		printf("5) Hardestestest\n");
-				scanf("%d",&difficulty);
+				scanf("%c",&difficulty);
 				printf("\n\n");
 		  	}while(difficulty < 1 || difficulty > 5);
 		
@@ -91,13 +91,13 @@ int main()
 	
 		// If we are running a game on this computer
 		if(mode == 1 || mode == 2){
-			int sp = 0;
+			char sp = 0;
 			// Verifying if we allow spectators
 			printf("Allow spectators\n");
 			printf("1) Yes\n");
 			printf("2) No\n");
 			do{
-				scanf("%d",&sp);
+				scanf("%c",&sp);
 			}while(sp < 1 || sp > 2);
 			
 			if(sp == 1){allow_spectators();} //defined in server.c start creating a connection
@@ -135,7 +135,7 @@ int main()
 		
 			// Asking for a rematch
 			do{
-				scanf("%d",&rematch);
+				scanf("%c",&rematch);
 			}while(rematch < 1 || rematch > 2);
 		}
 		

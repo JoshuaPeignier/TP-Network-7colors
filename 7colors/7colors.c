@@ -34,10 +34,10 @@ int main()
 	// Initialising everything necessary variables for the game
 	int victory1 = 0; //number of victories of PLAYER1
 	int victory2 = 0; //number of victories of PLAYER2
-	char mode = 0; //terminal's purpose for the durantion of the game (host player, )
-	char previous_mode = 0; // This is here to reset the score, in case we switch between AI player and a real player
-	char rematch = 1;
-	char difficulty = 0; //to choose between several AIs
+	int mode = 0; //terminal's purpose for the durantion of the game (host player, )
+	int previous_mode = 0; // This is here to reset the score, in case we switch between AI player and a real player
+	int rematch = 1;
+	int difficulty = 0; //to choose between several AIs
 	void (*P2)(char) = NULL; // This will be either an AI or a real player
 
 	while(rematch == 1){
@@ -52,7 +52,7 @@ int main()
 			printf("4) Host an online game\n");
 			printf("5) Join an online game\n");
 			printf("6) Quit\n");
-			scanf("%c",&mode);
+			scanf("%d",&mode);
 			printf("\n\n");
 	   	}while(mode < 1 || mode > 6);
 		
@@ -72,7 +72,7 @@ int main()
 		  		printf("3) Hardest\n");
 		  		printf("4) Hardestest\n");
 		  		printf("5) Hardestestest\n");
-				scanf("%c",&difficulty);
+				scanf("%d",&difficulty);
 				printf("\n\n");
 		  	}while(difficulty < 1 || difficulty > 5);
 		
@@ -97,7 +97,7 @@ int main()
 			printf("1) Yes\n");
 			printf("2) No\n");
 			do{
-				scanf("%c",&sp);
+				scanf("%d",&sp);
 			}while(sp < 1 || sp > 2);
 			
 			if(sp == 1){allow_spectators();} //defined in server.c start creating a connection
@@ -135,7 +135,7 @@ int main()
 		
 			// Asking for a rematch
 			do{
-				scanf("%c",&rematch);
+				scanf("%d",&rematch);
 			}while(rematch < 1 || rematch > 2);
 		}
 		
