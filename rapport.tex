@@ -36,7 +36,8 @@ Cette factorisation a pour interer que si les autres parties prenante veulent pa
 \bigskip
 
 Q2: Modifier le programme pour qu'il choisisse le port 7777 consiste uniquement a le lui imposé dans ces arguments.
-Une fois la connection etabli, on envois grâce a send la grille initial du jeu puis on commence à jouer. On envois a chaque tours les actions des joueurs au client.
+Une fois la connection etabli, on envois grâce a send la grille initial du jeu puis on commence à jouer. On envois à chaque tours les actions des joueurs au client La donné est consititué d'un doublon (joueur,client).
+LA taille reduite des donnée permet de ne pas surchargé le flux.
 Le client utilise les fonctions énoncé dans la Q1 pour reconstitué la partie en entier.
 
 Ceci fonctionne bien que l'on travaille de 2 terminaux distinct sur un même ordi ou sur deux ordinateur relier à la même adresse IP (nous n'avons pas encore réussi a interarrgir depuis deux localisation trop separer.
@@ -44,6 +45,8 @@ Ceci fonctionne bien que l'on travaille de 2 terminaux distinct sur un même ord
 \bigskip
 
 Q3 :
+
+
 \bigskip
 
 Q4 :
@@ -55,11 +58,29 @@ Q5 :
 Q6 :
 \bigskip
 
-Q7 :
+Q7 :Utilisé le même port permettrait de factorisé le programme mais on risque d'avoir un joueur qui se fait passé pour un observateur.
+
+Nous avons pris le parti de ne pas utilisé le même port pour l'observateur et le joueur externe ainsi il suffit de reprendre ce qui a été fait présedament mais en rajoutant que le serveur doit pouvoir recevoir des information de la part du client. De plus ce choix peut être justicieux si on s'attaque a la question bonus 9.
+
 \bigskip
 
 Q8 : Nous réutilisions le même principe, dans \texttt{server.c}, que pour envoyer à un observateur les données concernées. Toutefois, nous avons choisi de dupliquer toutes les fonctions déjà existantes, car le passage de sockets en argument à nos fonctions conduisait à un erreur de la forme \texttt{socket operation on non-socket}.
 \bigskip
+Donc tour à tour joueur externe et serveur envois puis attende des char.  
+\bigskip
+
+
+Q9 : Pour permettre un observateur en même temps qu'un joueur il suffit qu'a chaque fois que serveur joue il envois son tour a travers les deux port. Au tour du joueur externe celui-ci envoi son mouvement au serveur qui transmet l'information a l'obseraveteur avant d'entamer son tour.
+\bigskip
+
+Q10 :Idée abordée:
+ Si un client remarque une erreur de jeu (un joueur ayant jouer deux fois, il demande qu'on lui envois le tableau de nouveau.
+
+ On peut aussi imposé que tout les 6 tour de jeu le server envois les scores afin que tout client externe puisse vérifié la validité de sa grille et demande une nouvelle grille si la sienne est erroné.
+ 
+Q11 : 
+
+Q12 : 
 
 \section{References}
 https://en.wikipedia.org/wiki/Berkeley$\textunderscore$sockets$\sharp$accept.28.29
